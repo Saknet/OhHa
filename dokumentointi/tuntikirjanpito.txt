@@ -2,3 +2,15 @@
 
 1h github luontiin ja treenaukseen.
 30min aiheen kuvaus ja rakenne kirjoitteluun.
+
+15.5
+
+1h koodamiseen, v‰‰r‰ l‰hestymistapa, pakko aloittaa uudestaan alusta
+30 min luokkakaavion tekoon
+2h koodamiseen, chessboard ja movement luokkaa v‰‰netty
+1h testauksen kertailua
+
+16.5
+
+2h testien tekoon
+Turkuun ja AATUuun ottaa kovat persk‰nnit parin tunnin unella

@@ -1,11 +1,19 @@
 
 package chess;
 
-
+//päälogiikka luokka
 public class Chess {
-
- 
-    public static void main(String[] args) {
-
+    Chessboard board;
+    
+    public Chess() { 
+        this.board = new Chessboard();
+        
     }
+    
+    // käynnistää pelin
+    public void run () {
+        board.addPieces();
+        board.turn();
+    }
+
 }
