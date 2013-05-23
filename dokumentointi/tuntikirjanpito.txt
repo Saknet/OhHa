@@ -14,3 +14,14 @@
 
 2h testien tekoon
 Turkuun ja AATUuun ottaa kovat perskännit parin tunnin unella
+
+22.5
+1h syvällistä miettimistä mitä koodaisin
+3h koodausta(nappulan liikuttelua)
+
+23.5
+1h syvällistä miettimistä mitä koodais
+2h koodausta(lähetti perkele, ja luokkarakenne meni myös uusiks)
+30min luokkakaavio2
+4h JUnit testien kanssa tuskailuun, vieläkin kesken osa
+Viikonloppuna yritän kattoa enumin ja rajapinta jutut ohja asioista kun en enää niitä muista

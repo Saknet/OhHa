@@ -1,14 +1,11 @@
 
 package chess;
 
-import java.util.Scanner;
-
-//pyörittää pelilautaa, tähän luokkaan tulee aika paljon koodia
+//pyörittää pelilautaa
 public class Chessboard {
     private int [][] board;
-    private Movement movement;
-    private int turns;
-    private Scanner reader;    
+    private MovesWhite mWhite;
+    private MovesBlack mBlack;   
     private int [] whites;
     private int [] blacks;
 
@@ -26,11 +23,11 @@ public class Chessboard {
                                   {0,0,0,0,0,0,0,0},
                                   {1,1,1,1,1,1,1,1},
                                   {3,5,7,9,11,7,5,3}};
-        this.reader = new Scanner(System.in);
+
         this.whites = new int[16];
         this.blacks = new int[16];
-        this.movement = new Movement();
-
+        this.mWhite = new MovesWhite();
+        this.mBlack = new MovesBlack();
     }   
     
     //lisää mustien ha valkoisten nappuloiden sijannit arrayhen
@@ -47,67 +44,103 @@ public class Chessboard {
                         this.whites[l] = j * 10 + i;
                         l++;
                     }
-                }
-                        
+                }                        
             }
         }
-        
     }
     
-    
-    //aloittaa vuorot
-    public void turn() {
-        while(turns < 1000) {           
-            if (turns % 2 == 0) {
-                turns++;
-                blackTurn();           
-            } else {
-                turns++;
-                whiteTurn();
+    //tulostaa shakki laudan
+    public void printBoard() {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                System.out.print(board[i][j]);
             }
+            System.out.println("");
         }
     }
     //vuoroihin pitäisi lisätä koodia joka palauttaa vuoron pelajalle jos nappullaa ei voida siirtää
-    //mustan vuoro
-    public void blackTurn() {
-        System.out.println("Nappulan alku x-kordinaatti");  //sika ruma JButtom juttu sitten myöhemmin pelilaudan viereen kun teen grafiikat) 
-        int sx = Integer.parseInt(reader.nextLine());
-        System.out.println("Nappulan alku y-kordinaatti");
-        int sy = Integer.parseInt(reader.nextLine());
-        int piece = this.board[sx][sy];        
-        System.out.println("Nappulan loppu x-kordinaatti");        
-        int ex = Integer.parseInt(reader.nextLine());
-        System.out.println("Nappulan loppu y-kordinaatti");        
-        int ey = Integer.parseInt(reader.nextLine());
-        if (movement.checkStart(blacks, sx, sy) == true && movement.moveBlackKing(blacks, ex, ey) == true) { 
-            for (int i = 0; i < blacks.length; i++) {
-                if (blacks[i] == 10 * sx + sy) {
-                    editBlacks(ex, ey, i); 
-                    movePiece(sx, sy, piece);
-                }
+    //mustan siirrot laudalla
+    public void blackTurn(int sx, int sy, int ex, int ey) {
+        int piece = this.board[sy][sx]; 
+        if (piece == 2 && mBlack.moveBlackPawn(blacks, whites, sx, sy, ex, ey) == true) {  
+            moveBlack(sx, sy, ex, ey, piece);           
+        }    
+        if (piece == 4 && mBlack.moveBlackRook(board, blacks, sx, sy, ex, ey) == true) {  
+            moveBlack(sx, sy, ex, ey, piece);           
+        }  
+        if (piece == 6 && mBlack.moveBlackKnight(blacks, sx, sy, ex, ey) == true) {  
+            moveBlack(sx, sy, ex, ey, piece);           
+        }   
+        if (piece == 8 && mBlack.moveBlackBishop(board, blacks, sx, sy, ex, ey) == true) {  
+            moveBlack(sx, sy, ex, ey, piece);
+        }
+        if (piece == 10 && mBlack.moveBlackQueen(board, blacks, sx, sy, ex, ey) == true) { 
+            moveBlack(sx, sy, ex, ey, piece);
+        }        
+        if (piece == 12 && mBlack.moveBlackKing(blacks, sx, sy, ex, ey) == true) { 
+            moveBlack(sx, sy, ex, ey, piece);
+        }
+    }
+    
+    //valkoisen siirrot laudalla
+    public void whiteTurn(int sx, int sy, int ex, int ey) {
+        int piece = this.board[sy][sx]; 
+        if (piece == 1 && mWhite.moveWhitePawn(whites, blacks, sx, sy, ex, ey) == true) {         
+            moveWhite(sx, sy, ex, ey, piece);           
+        }  
+        if (piece == 3 && mWhite.moveWhiteRook(board, whites, sx, sy, ex, ey) == true) {         
+            moveWhite(sx, sy, ex, ey, piece);           
+        } 
+        if (piece == 5 && mWhite.moveWhiteKnight(whites, sx, sy, ex, ey) == true) {  
+            moveWhite(sx, sy, ex, ey, piece);           
+        } 
+        if (piece == 7 && mWhite.moveWhiteBishop(board, whites, sx, sy, ex, ey) == true) {  
+            moveWhite(sx, sy, ex, ey, piece);           
+        }        
+        if (piece == 9 && mWhite.moveWhiteQueen(board, whites, sx, sy, ex, ey) == true) {         
+            moveWhite(sx, sy, ex, ey, piece);
+        }        
+        if (piece == 11 && mWhite.moveWhiteKing(whites, sx, sy, ex, ey) == true) {         
+            moveWhite(sx, sy, ex, ey, piece);
+        }
+    }
+    //suorittaa valkoisen siirron shakkilaudalla
+    public void moveWhite(int sx, int sy, int ex, int ey, int piece) {
+            for (int i = 0; i < whites.length; i++) {
+                if (whites[i] == 10 * sx + sy) {
+                    editWhites(ex, ey, i);  
+                    movePiece(sx, sy, ex, ey, piece); 
+                    eliminateBlack(ex, ey);
+                }       
+            }         
+    }
+    
+    //"syö" mustan nappulan jos se on valkoisen kanssa samassa ruudussa
+    public void eliminateBlack(int x, int y) {
+        for (int i = 0; i < blacks.length; i++) {
+            if (blacks[i] == 10 * x + y) {
+                blacks[i] = 99;
             }
         }
     }
     
-    //valkoisen vuoro
-    public void whiteTurn() {
-        System.out.println("Nappulan alku x-kordinaatti");  //sika ruma JButtom juttu sitten myöhemmin pelilaudan viereen kun teen grafiikat) 
-        int sx = Integer.parseInt(reader.nextLine());
-        System.out.println("Nappulan alku y-kordinaatti");
-        int sy = Integer.parseInt(reader.nextLine());  
-        System.out.println("Nappulan loppu x-kordinaatti");
-        int piece = this.board[sx][sy];        
-        int ex = Integer.parseInt(reader.nextLine());
-        System.out.println("Nappulan loppu y-kordinaatti");        
-        int ey = Integer.parseInt(reader.nextLine());
-        if (movement.checkStart(whites, sx, sy) == true && movement.moveWhiteKing(whites, ex, ey) == true) {         
-            for (int i = 0; i < whites.length; i++) {
-                if (whites[i] == 10 * sx + sy) {
-                    editWhites(ex, ey, i);  
-                    movePiece(sx, sy, piece);                  
-                }       
-            }            
+    //"syö" valkoisen nappulan jos se on mustan kanssa samassa ruudussa
+    public void eliminateWhite(int x, int y) {
+        for (int i = 0; i < whites.length; i++) {
+            if (whites[i] == 10 * x + y) {
+                whites[i] = 99;
+            }
         }
+    }     
+    //suorittaa mustan siirron shakkilaudalla
+    public void moveBlack(int sx, int sy, int ex, int ey, int piece) {
+            for (int i = 0; i < blacks.length; i++) {
+                if (blacks[i] == 10 * sx + sy) {
+                    editBlacks(ex, ey, i); 
+                    movePiece(sx, sy, ex, ey, piece);
+                    eliminateWhite(ex, ey);
+                }
+            }        
     }
     
     //pävittää muuttuneen mustan nappulan sijannin
@@ -120,8 +153,8 @@ public class Chessboard {
     }    
     
     //siirtää nappulaa pelilaudalla
-    public void movePiece(int x, int y, int piece) {
-        this.board[y][x] = 0;
+    public void movePiece(int sx, int sy, int x, int y, int piece) {
+        this.board[sy][sx] = 0;
         this.board[y][x] = piece;        
     }
     
