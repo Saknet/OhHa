@@ -1,8 +1,7 @@
 
 package Chess;
 
-import chess.Chessboard;
-import chess.Movement;
+import chess.game.Chessboard;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,11 +11,7 @@ import static org.junit.Assert.*;
 
 
 public class ChessboardTest {
-    Chessboard board;
-    Movement move;
-    private int [] whites;
-    private int [] blacks;
-    private int [][] board2;    
+    Chessboard board;    
    
     
     public ChessboardTest() {

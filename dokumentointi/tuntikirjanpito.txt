@@ -25,3 +25,29 @@ Turkuun ja AATUuun ottaa kovat perskännit parin tunnin unella
 30min luokkakaavio2
 4h JUnit testien kanssa tuskailuun, vieläkin kesken osa
 Viikonloppuna yritän kattoa enumin ja rajapinta jutut ohja asioista kun en enää niitä muista
+
+27.5
+3h korjattu edellisen viikon virheitä, luokkarakenne uusiks taas
+
+28.5
+1h javadocs
+1h mietitty mitä koodais
+3h tuskailtu uuden koodin kanssa
+
+29.5
+1h javadocs
+4h tuskailtu uuden koodin kanssa (checkmate)
+2h testien kanssa pelleillyyn (ei toimi mikään)
+1h kaavioiden kanssa itkemiseen
+ei suju hommat
+
+30.5
+1h30min luokkakaavio ja sekvenssikaaviot deadline 4 varten valmiina, on rumia ja epäselviä, en muista enää otm asioita
+30min koodausta
+1h harjoitustyön miettimistä tilastotieteen laskareissa, time well spent jos multa kysytään
+2h testien tekoa (toimii jotain)
+30min javadocsin tekoa ja tuntikirjanpitoa
+2h30min koodausta, grafiikan aloittelua
+
+
+mikä on kun ei taidot riitä...

@@ -1,7 +1,7 @@
 
 package Chess;
 
-import chess.Checks;
+import chess.domain.Checks;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
