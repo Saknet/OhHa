@@ -23,7 +23,7 @@ public class Interface  {
     private JButton start;
     private JButton exit;
     private JButton giveUp;
-    private Container container;
+    private modifyComponent mC;
 
 
     public void run() {
@@ -40,69 +40,46 @@ public class Interface  {
      * teen oman luokka nappien yms muokkaukseen seuravaan deadlineen..
      */     
     private void createComponents(Container container) {
-        this.paint = new Paint();       
+        this.paint = new Paint(); 
+        this.mC = new modifyComponent();
+        
         start = new JButton("Start new game"); 
-        start.setLocation(50, 50);
-        start.setSize(150, 50);
-        start.setFont(new Font("Serif", Font.BOLD, 12));
-        container.add(start);
+        mC.modifyJButton(start, 50, 50, 150, 50, 12, container);
+        
         giveUp = new JButton("Give up");
-        giveUp.setLocation(50, 150);
-        giveUp.setSize(150, 50);
-        giveUp.setFont(new Font("Serif", Font.BOLD, 12));    
-        container.add(giveUp);
+        mC.modifyJButton(giveUp, 50, 150, 150, 50, 12, container); 
+        
         exit = new JButton("Exit");        
-        exit.setLocation(50, 250);
-        exit.setSize(150, 50);
-        exit.setFont(new Font("Serif", Font.BOLD, 12)); 
-        container.add(exit);
+        mC.modifyJButton(exit, 50, 250, 150, 50, 12, container);                
         exit.addActionListener(new Actions());        
         
         JLabel startx = new JLabel("start X: ");
-        startx.setLocation(25, 350);
-        startx.setSize(70, 50);  
+        mC.modifyJLabel(startx, 25, 350, 70, 50, 12, container);
         
         JTextField startxField = new JTextField();
-        startxField.setLocation(100, 350);  
-        startxField.setSize(50, 40);
+        mC.modifyJTextField(startxField, 100, 350, 50, 40, 12, container);        
         
         JLabel starty = new JLabel("start Y: ");
-        starty.setLocation(25, 400);
-        starty.setSize(70, 50); 
+        mC.modifyJLabel(starty, 25, 400, 70, 50, 12, container);        
         
         JTextField startyField = new JTextField();
-        startyField.setLocation(100, 400);        
-        startyField.setSize(50, 40); 
+        mC.modifyJTextField(startyField, 100, 400, 50, 40, 12, container);            
         
-        JLabel endx = new JLabel("end X: ");
-        endx.setLocation(175, 350);
-        endx.setSize(70, 50);  
+        JLabel endx = new JLabel("end X: "); 
+        mC.modifyJLabel(endx, 175, 350, 70, 50, 12, container);        
         
         JTextField endxField = new JTextField();
-        endxField.setLocation(250, 350);  
-        endxField.setSize(50, 40);   
+        mC.modifyJTextField(endxField, 250, 350, 50, 40, 12, container);            
         
         JLabel endy = new JLabel("end Y: ");
-        endy.setLocation(175, 400);
-        endy.setSize(70, 50);  
+        mC.modifyJLabel(endy, 175, 400, 70, 50, 12, container);        
+        
         
         JTextField endyField = new JTextField(); 
-        endyField.setLocation(250, 400);  
-        endyField.setSize(50, 40); 
+        mC.modifyJTextField(endyField, 250, 400, 50, 40, 12, container);          
         
-        JButton moves = new JButton("Move piece");
-        moves.setLocation(200, 450);
-        moves.setSize(100, 50);        
-        
-        container.add(startx);
-        container.add(startxField);
-        container.add(starty);
-        container.add(startyField);
-        container.add(endx);
-        container.add(endxField);
-        container.add(endy);
-        container.add(endyField);        
-        container.add(moves);        
+        JButton moves = new JButton("Move piece");  
+        mC.modifyJButton(moves, 200, 450, 100, 50, 12, container);                                  
 
         container.add(paint);         
             

@@ -132,7 +132,7 @@ public class MovesTest {
         assertEquals(mBlack.moveKing(whites, 4, 4, 5, 4), true);          
         
     } 
-    
+ 
     @Test
     public void moveWhitePawnTest() {
         assertEquals(mBlack.moveWhitePawn(whites, blacks, 0, 6, 0, 4), true);
@@ -182,6 +182,7 @@ public class MovesTest {
         assertEquals(mBlack.moveQueen(board, whites, 3, 2, 5, 4), true);  
         assertEquals(mBlack.moveQueen(board, whites, 3, 2, 2, 1), true); 
         assertEquals(mBlack.moveQueen(board, whites, 3, 2, 3, 1), true);  
-        assertEquals(mBlack.moveQueen(board, whites, 3, 2, 3, 5), true);        
+        assertEquals(mBlack.moveQueen(board, whites, 3, 2, 3, 5), true); 
+        
     }         
 }
