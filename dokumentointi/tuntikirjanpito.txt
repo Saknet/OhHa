@@ -50,4 +50,21 @@ ei suju hommat
 2h30min koodausta, grafiikan aloittelua
 
 
-mik‰ on kun ei taidot riit‰...
+2.6
+2h koodikatselmointiin
+1h lis‰‰ grafiikkakoodausta
+
+3.6
+1h juteltu Arcanen kanssa pajassa edistymisest‰ ja grafiikan teosta
+
+4.6
+6h koodattu grafiikkaa
+
+5.6
+6h koodattu grafiikkaa
+
+6.6
+2h javadocsin p‰ivitt‰miseen
+2h testeihin
+2h koodin paranteluun ja javadocsin p‰ivittelyyn
+1h sekvenssikaavioihin

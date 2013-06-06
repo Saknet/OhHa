@@ -122,36 +122,7 @@ public class MovesTest {
         assertEquals(mBlack.moveQueen(board, blacks, 4, 4, 6, 2), true);         
         assertEquals(mBlack.moveQueen(board, blacks, 4, 4, 0, 0), false);         
     }
-    
-    @Test
-    public void moveWhiteKingTest() {
-        assertEquals(mBlack.moveKing(whites, 0, 0, 0, 1), true); 
-        assertEquals(mBlack.moveKing(whites, 4, 0, 4, -1), false); 
-        assertEquals(mBlack.moveKing(whites, 8, 0, 5, 1), false); 
-        assertEquals(mBlack.moveKing(whites, 4, 4, 4, 5), true); 
-        assertEquals(mBlack.moveKing(whites, 4, 4, 5, 4), true);          
-        
-    } 
- 
-    @Test
-    public void moveWhitePawnTest() {
-        assertEquals(mBlack.moveWhitePawn(whites, blacks, 0, 6, 0, 4), true);
-        assertEquals(mBlack.moveWhitePawn(whites, blacks, 2, 5, 2, 4), true);
-        assertEquals(mBlack.moveWhitePawn(whites, blacks, 3, 2, 2, 1), true);
-        assertEquals(mBlack.moveWhitePawn(whites, blacks, 1, 3, 1, 1), false); 
-        assertEquals(mBlack.moveWhitePawn(whites, blacks, 4, 3, 3, 2), false);  
-        assertEquals(mBlack.moveWhitePawn(whites, blacks, 5, 6, 5, 7), false);         
-    }
-    
-    @Test
-    public void moveWhiteKnightTest() {   
-        assertEquals(mBlack.moveKnight(whites, 1, 7, 3, 6), false);
-        assertEquals(mBlack.moveKnight(whites, 5, 6, 3, 7), false);
-        assertEquals(mBlack.moveKnight(whites, 3, 2, 4, 0), true);
-        assertEquals(mBlack.moveKnight(whites, 6, 7, 7, 5), true);  
-        assertEquals(mBlack.moveKnight(whites, 0, 0, 0, 0), false);        
-    } 
-    
+      
     @Test
     public void moveWhiteRookTest() {  
         assertEquals(mBlack.moveRook(board, whites, 7, 7, 0, 7), false);
@@ -184,5 +155,34 @@ public class MovesTest {
         assertEquals(mBlack.moveQueen(board, whites, 3, 2, 3, 1), true);  
         assertEquals(mBlack.moveQueen(board, whites, 3, 2, 3, 5), true); 
         
-    }         
+    }
+    
+    @Test
+    public void moveWhiteKingTest() {
+        assertEquals(mBlack.moveKing(whites, 0, 0, 0, 1), true); 
+        assertEquals(mBlack.moveKing(whites, 4, 0, 4, -1), false); 
+        assertEquals(mBlack.moveKing(whites, 8, 0, 5, 1), false); 
+        assertEquals(mBlack.moveKing(whites, 4, 4, 4, 5), true); 
+        assertEquals(mBlack.moveKing(whites, 4, 4, 5, 4), true);          
+        
+    } 
+ 
+    @Test
+    public void moveWhitePawnTest() {
+        assertEquals(mBlack.moveWhitePawn(whites, blacks, 0, 6, 0, 4), true);
+        assertEquals(mBlack.moveWhitePawn(whites, blacks, 2, 5, 2, 4), true);
+        assertEquals(mBlack.moveWhitePawn(whites, blacks, 3, 2, 2, 1), true);
+        assertEquals(mBlack.moveWhitePawn(whites, blacks, 1, 3, 1, 1), false);
+        assertEquals(mBlack.moveWhitePawn(whites, blacks, 4, 3, 3, 2), false);
+        assertEquals(mBlack.moveWhitePawn(whites, blacks, 5, 6, 5, 7), false);
+    }
+    
+    @Test
+    public void moveWhiteKnightTest() {
+        assertEquals(mBlack.moveKnight(whites, 1, 7, 3, 6), false);
+        assertEquals(mBlack.moveKnight(whites, 5, 6, 3, 7), false);
+        assertEquals(mBlack.moveKnight(whites, 3, 2, 4, 0), true);
+        assertEquals(mBlack.moveKnight(whites, 6, 7, 7, 5), true);
+        assertEquals(mBlack.moveKnight(whites, 0, 0, 0, 0), false);
+    }    
 }

@@ -2,123 +2,132 @@
 package chess.game;
 
 import chess.domain.CheckMate;
-import chess.Menu;
-import chess.domain.Player;
-import java.util.Scanner;
 
 /** 
- * kontrolloiva luokka
+ * kontrolloiva luokka, tämän luokan avulla GUI pyörittää itse pelilogiikkaa.
  */ 
 public class Chess {
     private Chessboard board;
     private int turns;  
-    private Scanner reader; 
-    private Player player;
-    private Menu menu;
     private CheckMate cm;
+    private int[][] cb;
+    private int info;
 
     
-    
+    /**
+     * Luokan konstruktori, luodaan oliot ChessBoard ja CheckMate joita luokka
+     * käyttää, lisäksi luodaan shakkilautakopio array jota GUI voi käyttää, 
+     * turns muuttuja joka pitää kirjaa vuoroista ja info muuttuja jota käytettään
+     * ilmoittamaan pelitilannetta GUIssa (shakki ja voitto).
+     */    
     public Chess() { 
         this.board = new Chessboard();
-        this.turns = 1; 
-        this.reader = new Scanner(System.in);  
-        this.player = new Player();
-        this.menu = new Menu();
         this.cm = new CheckMate();
+        this.cb =  new int[8][8];
+        this.turns = 1;         
+        this.info = 0;
 
     }
     
     /** 
-     * käynnistää pelin
+     * käynnistää pelin, luo uuden shakkilaudan ja kirjaa ylös mustien ja
+     * valkoisten nappuloiden sijannit omiin arraynsa.
      */    
     public void run () {
-        board.addPieces();
-        turn();
+        this.board.newBoard();
+        this.board.addPieces();
+    }
+ 
+     /** 
+     * kopio pelilaudan GUIta varten.
+     */     
+    public void copyBoard() {
+        this.cb = board.getBoard();
     }
     
-    /** 
-     * pyörittää peliä, tällä hetkellä siihen asti kunnes jompikumpi kuningas on syöty ja tekstipohjaisena
-     * pariton vuoro on valkoisen vuoro ja parillinen mustan
-     * jos vuoro epäonnistuu virheellisen syötteen takia pelaaja saa syöttää uudestaan arvot
-     * jos kuningas on hyökkäyksen kohteena peli ilmoittaa siitä
+     /** 
+     * palauttaa pelilaudan, käytettään GUIsta.
      */     
-    public void turn() {    
-        while(turns < Integer.MAX_VALUE) { 
-            board.printBoard();          
-        
-            if (turns % 2 == 0) {
-                if (board.getBlack(4) == 99) {
-                    player.WhiteWins();
-                    break;
-                }
-                blackTurn();
-                if (board.getMoveB() == true) {                   
-                    turns++;
-                }                
-            } else { 
-                if (board.getWhite(12) == 99) {
-                    player.BlackWins();
-                    break;
-                }                
-                whiteTurn();             
-                if (board.getMoveW() == true) {                   
-                    turns++;
-            }                
-            }           
-        }
-    }
+    public int[][] getBoard() {
+        return cb;
+    }  
+    
     
     /** 
-     * mustan vuoro, tekstipohjaisena tällä hetkellä..
+     * Mustan vuoro.
+     * 
+     * @param sx siirettävän nappulan x - alkukoordinaatti.
+     * @param sy siirettävän nappulan y - alkukoordinaatti.
+     * @param ex siirettävän nappulan x - loppukoordinaatti.
+     * @param ey siirettävän nappulan y - loppukoordinaatti.
      */     
-    public void blackTurn() {
-        System.out.println("Mustan vuoro:");
-        System.out.println("Nappulan alku x-kordinaatti");  //sika ruma JButton juttu sitten myöhemmin pelilaudan viereen kun teen grafiikat 
-        int sx = Integer.parseInt(reader.nextLine());
-        System.out.println("Nappulan alku y-kordinaatti");
-        int sy = Integer.parseInt(reader.nextLine());       
-        System.out.println("Nappulan loppu x-kordinaatti");        
-        int ex = Integer.parseInt(reader.nextLine());
-        System.out.println("Nappulan loppu y-kordinaatti");        
-        int ey = Integer.parseInt(reader.nextLine());
+    public void blackTurn(int sx, int sy, int ex, int ey) {      
         board.blackTurn(sx, sy, ex, ey);
-        if (canAttackKing(board.getBoard(), board.getPiece(sx, sy), ex, ey) == true) {
-            System.out.println("White king under attack");
+        if (board.getMoveB()) { 
+            setInfo(0);
+            turns++;
+        }        
+        if (canAttackKing(board.getBoard(), board.getPiece(sx, sy), ex, ey)) {
+            setInfo(1);
         }
+        if (board.getWhite(12) == 99) {
+            setInfo(3);
+        }         
     }
     
     /** 
-     * valkoisen vuoro, tekstipohjaisena tällä hetkellä..
+     * Valkoisen vuoro.
+     * 
+     * @param sx siirettävän nappulan x - alkukoordinaatti.
+     * @param sy siirettävän nappulan y - alkukoordinaatti.
+     * @param ex siirettävän nappulan x - loppukoordinaatti.
+     * @param ey siirettävän nappulan y - loppukoordinaatti.
      */ 
-    public void whiteTurn() {   
-        System.out.println("Valkoisen vuoro:");
-        System.out.println("Nappulan alku x-kordinaatti");  //sika ruma JButton juttu sitten myöhemmin pelilaudan viereen kun teen grafiikat 
-        int sx = Integer.parseInt(reader.nextLine());
-        System.out.println("Nappulan alku y-kordinaatti");
-        int sy = Integer.parseInt(reader.nextLine());  
-        System.out.println("Nappulan loppu x-kordinaatti");
-        int ex = Integer.parseInt(reader.nextLine());
-        System.out.println("Nappulan loppu y-kordinaatti");        
-        int ey = Integer.parseInt(reader.nextLine()); 
-        board.whiteTurn(sx, sy, ex, ey);        
-        if (canAttackKing(board.getBoard(), board.getPiece(sx, sy), ex, ey) == true) {
-            System.out.println("Black king under attack");
+    public void whiteTurn(int sx, int sy, int ex, int ey) {        
+        board.whiteTurn(sx, sy, ex, ey);  
+        if (board.getMoveW()) {
+            setInfo(0);            
+            turns++;
+        }         
+        if (canAttackKing(board.getBoard(), board.getPiece(sx, sy), ex, ey)) {
+            setInfo(2);
         }
+        if (board.getBlack(4) == 99) {
+            setInfo(4);
+        }          
     } 
     /**
-     * tarkistaa voiko kyseinen puoli shakittaa vastapuolen kuningasta
-     * @param board tämän hetken shakki lauta
-     * @param piece siirtyneen nappulan numero
-     * @param x hyökkävän nappulan x - koordinaatti
-     * @param y hyökkävän nappulan y - koordinaatti
-     * @return palauttaa arvoksi true jos kuningas on hyökkäyksen kohteena
+     * Tarkistaa voiko kyseinen puoli shakittaa vastapuolen kuningasta.
+     * 
+     * @param board tämän hetken shakki lauta.
+     * @param piece siirtyneen nappulan numero.
+     * @param x hyökkävän nappulan x - koordinaatti.
+     * @param y hyökkävän nappulan y - koordinaatti.
+     * @return palauttaa arvoksi true jos kuningas on hyökkäyksen kohteena.
      */     
     public boolean canAttackKing(int[][] board, int piece, int x, int y) {
-        if (cm.canAttackKing(board, piece, x, y) == true) {
+        if (cm.canAttackKing(board, piece, x, y)) {
             return true;
         }
         return false;
+    }
+    
+    public int getTurn() {
+        return this.turns;
+    }
+
+     /** 
+     * Asetetaan infolle arvo, infoa luetaan GUIsta, jos aika riittää katson voinko
+     * todeuttaa tämän enumilla.
+     */     
+    public void setInfo(int info) {
+        this.info = info;
+    } 
+     /** 
+     * Palauttaa GUIlle infon arvon.
+     */     
+    public int getInfo() {
+        return this.info;
     }
 
 }

@@ -2,6 +2,7 @@
 package Chess;
 
 import chess.domain.Checks;
+import chess.game.Chessboard;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,18 +15,28 @@ public class ChecksTest {
     private Checks checks;
     private int [] whites;
     private int [] blacks;
-    private int [][] board;  
+    private int [][] board; 
+    private Chessboard cb;
     
     public ChecksTest() {
         this.checks = new Checks();
-        this.board = new int[][] {{4,6,8,10,12,8,6,4},
-                                  {2,2,2,2,2,2,2,2},
-                                  {0,0,0,0,0,0,0,0},
-                                  {0,0,0,0,0,0,0,0},
-                                  {0,0,0,0,0,0,0,0},
-                                  {0,0,0,0,0,0,0,0},
-                                  {1,1,1,1,1,1,1,1},
-                                  {3,5,7,9,11,7,5,3}};   
+        this.board = new int [8][8];
+        this.cb = new Chessboard();
+                        
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+        cb.newBoard();
+        this.board = cb.getBoard();
         this.whites = new int[16];
         this.blacks = new int[16]; 
         int k = 0;
@@ -43,19 +54,7 @@ public class ChecksTest {
                 }
                         
             }
-        }                        
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
+        }        
     }
     
     @After
@@ -63,13 +62,23 @@ public class ChecksTest {
     }
     
     @Test
-    public void emptyTest() {
+    public void emptyWhiteTest() {
         assertEquals(checks.empty(whites, 7, 7), false);
         assertEquals(checks.empty(whites, 3, 2), true);
         assertEquals(checks.empty(whites, 5, 1), true);  
         assertEquals(checks.empty(whites, 0, 3), true);    
         assertEquals(checks.empty(whites, 5, 6), false);          
     }
+    
+    @Test
+    public void emptyBlackTest() {
+        assertEquals(checks.empty(blacks, 7, 7), true);
+        assertEquals(checks.empty(blacks, 3, 2), true);
+        assertEquals(checks.empty(blacks, 5, 1), false);  
+        assertEquals(checks.empty(blacks, 0, 3), true);    
+        assertEquals(checks.empty(blacks, 5, 6), true);          
+    }    
+    
     @Test
     public void onBoardTest() {
         assertEquals(checks.onBoard(0, 0), true);
@@ -78,5 +87,40 @@ public class ChecksTest {
         assertEquals(checks.onBoard(5, 7), true); 
         assertEquals(checks.onBoard(3, -9), false);         
     }
+    
+    // jotain kusee seuraavissa testeissä, ei pitäisi mennä läpi mutta silti menee...
+    @Test
+    public void rookCheckVerticalTrue() {
+        int[][] board2 = new int[8][8];
+        board2 = this.board;
+        assertEquals(checks.rookCheckHorizontal(board2, 0, 5, 0, 7), true);       
+    }
+    
+    @Test
+    public void rookCheckHorizontalTrue() {
+        assertEquals(checks.rookCheckHorizontal(this.board, 4, 5, 4, 7), true);       
+    }  
+    
+    @Test
+    public void bishopCheckNWTrue() {
+        assertEquals(checks.bishopCheckNW(this.board, 4, 5, 4, 7), true);       
+    }
+    
+    @Test
+    public void bishopCheckNETrue() {
+        assertEquals(checks.bishopCheckNE(this.board, 4, 5, 4, 7), true);       
+    } 
+    
+    @Test
+    public void bishopCheckSWTrue() {
+        assertEquals(checks.bishopCheckSW(this.board, 4, 5, 4, 7), true);       
+    }   
+
+    @Test
+    public void bishopCheckSETrue() {
+        int[][] board2 = new int[8][8];
+        board2 = this.board;       
+        assertEquals(checks.bishopCheckSE(board2, 4, 5, 4, 9), true);       
+    }     
 
 }

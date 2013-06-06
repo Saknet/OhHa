@@ -2,26 +2,32 @@
 package chess.domain;
 
 /**
- * kaikkien nappuloiden siirrot
+ * Tämä luokka määrittelee kaikkien nappuloiden siirtojen laillisuuden.
  */
 public class Moves {
     private Checks checks;
-    
+       
+     /**
+     * Luokan konstruktori.
+     *
+     * @param checks, olio joka tarkistaa muutaman asian siirtojen yhteydessä.
+     */   
     public Moves() {
         this.checks = new Checks();
     }
     
     /**
-     * siirtää kuningasta
-     * @param locations omien nappuloiden sijannit
-     * @param sx siirrettävän nappulan alku x-koordinaatti
-     * @param sy siirrettävän nappulan alku y-koordinaatti
-     * @param x siirettävän nappulan loppu x-koordinaatti
-     * @param y siirettävän nappulan loppu y-koordinaatti
-     * @return palauttaa true jos siirton on mahdollinen
+     * Tarkistaa voidaanko kuningasta siirtää alkuruudusta kohderuutuun.
+     * 
+     * @param locations omien nappuloiden sijannit.
+     * @param sx siirrettävän nappulan alku x-koordinaatti.
+     * @param sy siirrettävän nappulan alku y-koordinaatti.
+     * @param x siirettävän nappulan loppu x-koordinaatti.
+     * @param y siirettävän nappulan loppu y-koordinaatti.
+     * @return palauttaa true jos siirton on mahdollinen.
      */
     public boolean moveKing(int[]locations, int sx, int sy, int x, int y) {
-        if (checks.onBoard(x, y) == true && checks.empty(locations, x, y) == true) {
+        if (checks.onBoard(x, y) && checks.empty(locations, x, y)) {
             if (sx - 1 == x && sy - 1 == y) {
                 return true;
             }
@@ -52,17 +58,18 @@ public class Moves {
     }
     
     /**
-     * mustan sotilan siirrot
-     * @param blacks mustien nappuloiden sijannit
-     * @param whites valkoisten nappuloiden sijannit
-     * @param sx siirrettävän nappulan alku x-koordinaatti
-     * @param sy siirrettävän nappulan alku y-koordinaatti
-     * @param x siirettävän nappulan loppu x-koordinaatti
-     * @param y siirettävän nappulan loppu y-koordinaatti
-     * @return palauttaa true jos siirton on mahdollinen
+     * Tarkistaa voidaanko mustaa sotilasta siirtää alkuruudusta kohderuutuun.
+     * 
+     * @param blacks mustien nappuloiden sijannit.
+     * @param whites valkoisten nappuloiden sijannit.
+     * @param sx siirrettävän nappulan alku x-koordinaatti.
+     * @param sy siirrettävän nappulan alku y-koordinaatti.
+     * @param x siirettävän nappulan loppu x-koordinaatti.
+     * @param y siirettävän nappulan loppu y-koordinaatti.
+     * @return palauttaa true jos siirton on mahdollinen.
      */
     public boolean moveBlackPawn(int[]blacks, int[]whites, int sx, int sy, int x, int y) {
-        if (x == sx && checks.empty(blacks, x, y) == true) {        
+        if (x == sx && checks.empty(blacks, x, y)) {        
             if (sy == 1 && y == 3) {
                 return true;
             }
@@ -70,24 +77,25 @@ public class Moves {
                 return true;
             }
         }
-        if (checks.empty(whites, x, y) == false && sy + 1 == y && (sx - 1 == x || sx + 1 == x)) {
+        if (!checks.empty(whites, x, y) && sy + 1 == y && (sx - 1 == x || sx + 1 == x)) {
             return true;
         }        
         return false;
     }
     
     /**
-     * valkoisen sotilan siirrot
-     * @param whites valkoisten nappuloiden sijannit
-     * @param blacks mustien nappuloiden sijannit
-     * @param sx siirrettävän nappulan alku x-koordinaatti
-     * @param sy siirrettävän nappulan alku y-koordinaatti
-     * @param x siirettävän nappulan loppu x-koordinaatti
-     * @param y siirettävän nappulan loppu y-koordinaatti
-     * @return palauttaa true jos siirton on mahdollinen
+     * Tarkistaa voidaanko valkoista sotilasta siirtää alkuruudusta kohderuutuun.
+     * 
+     * @param whites valkoisten nappuloiden sijannit.
+     * @param blacks mustien nappuloiden sijannit.
+     * @param sx siirrettävän nappulan alku x-koordinaatti.
+     * @param sy siirrettävän nappulan alku y-koordinaatti.
+     * @param x siirettävän nappulan loppu x-koordinaatti.
+     * @param y siirettävän nappulan loppu y-koordinaatti.
+     * @return palauttaa true jos siirton on mahdollinen.
      */ 
     public boolean moveWhitePawn(int[]whites, int[]blacks, int sx, int sy, int x, int y) {
-        if (x == sx && checks.empty(whites, x, y) == true) {
+        if (x == sx && checks.empty(whites, x, y)) {
             if (sy == 6 && y == 4) {
                 return true;
             }
@@ -95,23 +103,24 @@ public class Moves {
                 return true;
             }
         }
-        if (checks.empty(blacks, x, y) == false && sy - 1 == y && (sx - 1 == x || sx + 1 == x)) {
+        if (!checks.empty(blacks, x, y) && sy - 1 == y && (sx - 1 == x || sx + 1 == x)) {
             return true;
         }        
         return false;
     }
     
     /**
-     * ratsun siirrot
-     * @param locations omien nappuloiden sijannit
-     * @param sx siirrettävän nappulan alku x-koordinaatti
-     * @param sy siirrettävän nappulan alku y-koordinaatti
-     * @param x siirettävän nappulan loppu x-koordinaatti
-     * @param y siirettävän nappulan loppu y-koordinaatti
-     * @return palauttaa true jos siirton on mahdollinen
+     * Tarkistaa voidaanko ratsua siirtää alkuruudusta kohderuutuun.
+     * 
+     * @param locations omien nappuloiden sijannit.
+     * @param sx siirrettävän nappulan alku x-koordinaatti.
+     * @param sy siirrettävän nappulan alku y-koordinaatti.
+     * @param x siirettävän nappulan loppu x-koordinaatti.
+     * @param y siirettävän nappulan loppu y-koordinaatti.
+     * @return palauttaa true jos siirton on mahdollinen.
      */     
     public boolean moveKnight(int[]locations, int sx, int sy, int x, int y) {
-        if (checks.onBoard(x, y) == true && y < 8 && checks.empty(locations, x, y) == true) {
+        if (checks.onBoard(x, y) && y < 8 && checks.empty(locations, x, y)) {
             if (sx - 1 == x && sy - 2 == y) {
                 return true;
             }
@@ -142,100 +151,54 @@ public class Moves {
     }
     
     /**
-     * mustan tornin siirrot
-     * @param locations omien nappuloiden sijannit
-     * @param sx siirrettävän nappulan alku x-koordinaatti
-     * @param sy siirrettävän nappulan alku y-koordinaatti
-     * @param x siirettävän nappulan loppu x-koordinaatti
-     * @param y siirettävän nappulan loppu y-koordinaatti
-     * @return palauttaa true jos siirton on mahdollinen
+     * Tarkistaa voidaanko tornia siirtää alkuruudusta kohderuutuun.
+     * 
+     * @param board shakkilauta
+     * @param locations omien nappuloiden sijannit.
+     * @param sx siirrettävän nappulan alku x-koordinaatti.
+     * @param sy siirrettävän nappulan alku y-koordinaatti.
+     * @param x siirettävän nappulan loppu x-koordinaatti.
+     * @param y siirettävän nappulan loppu y-koordinaatti.
+     * @return palauttaa true jos siirton on mahdollinen.
      */ 
     public boolean moveRook(int[][]board, int[]locations, int sx, int sy, int x, int y) {
-        if (checks.onBoard(x, y) == true && y < 8 && checks.empty(locations, x, y) == true) {
-            if (sx == x) {
-                if (sy < y) {
-                    for (int i = sy + 1; i < y; i++) {
-                        if (board[i][sx] != 0) {
-                            return false;
-                        }
-                    }  
-                    return true;
-                } else {
-                    for (int i = sy - 1; i > y; i--) {
-                        if (board[i][sx] != 0) {
-                            return false;
-                        }
-                    }
-                    return true;
-                }            
+        if (checks.onBoard(x, y) && y < 8 && checks.empty(locations, x, y)) {
+            if (sx == x && checks.rookCheckVertical(board, sx, sy, x, y)) {
+                return true;
             }
-            if (sy == y) {
-                if (sx < x) {
-                    for (int i = sx + 1; i < x; i++) {
-                        if (board[sy][i] != 0) {
-                            return false;
-                        }
-                    }  
-                    return true;
-                } else {
-                    for (int i = sx - 1; i > x; i--) {
-                        if (board[sy][i] != 0) {
-                            return false;
-                        }
-                    }
-                    return true;
-                }                        
+            if (sy == y && checks.rookCheckHorizontal(board, sx, sy, x, y)) {
+                return true;
             }
         }
         return false;
     }    
     
     /**
-     * lähetin siirrot
-     * @param locations omien nappuloiden sijannit
-     * @param sx siirrettävän nappulan alku x-koordinaatti
-     * @param sy siirrettävän nappulan alku y-koordinaatti
-     * @param x siirettävän nappulan loppu x-koordinaatti
-     * @param y siirettävän nappulan loppu y-koordinaatti
-     * @return palauttaa true jos siirton on mahdollinen
+     * Tarkistaa voidaanko lähettiä siirtää alkuruudusta kohderuutuun.
+     * 
+     * @param board shakkilauta
+     * @param locations omien nappuloiden sijannit.
+     * @param sx siirrettävän nappulan alku x-koordinaatti.
+     * @param sy siirrettävän nappulan alku y-koordinaatti.
+     * @param x siirettävän nappulan loppu x-koordinaatti.
+     * @param y siirettävän nappulan loppu y-koordinaatti.
+     * @return palauttaa true jos siirton on mahdollinen.
      */ 
     public boolean moveBishop(int[][]board, int[]locations, int sx, int sy, int x, int y) {
-        if (checks.onBoard(x, y) == true && y < 8 && checks.empty(locations, x, y) == true) {
+        if (checks.onBoard(x, y) && y < 8 && checks.empty(locations, x, y)) {
             
-            if (sx > x && sy > y) {
-                for (int i = sx - 1; i > x; i--) {
-                    if (board[y + i][x + i] != 0) {
-                        return false;
-                    }
-                }
+            if (sx > x && sy > y && checks.bishopCheckNW(board, sx, sy, x, y)) {
                 return true;
             }
-            if (sx > x && sy < y) {
-                for (int i = sx - 1; i > x; i--) {
-                    if (board[y - i][x + i] != 0) {
-                        return false;
-                    }
-                }
-                return true;                
-                
-            }              
-            if (sx < x && sy > y) {
-                int k = 0;                
-                for (int i = sx + 1; i < x; i++) {
-                    if (board[sy - k][i] != 0) {
-                        return false;
-                    }
-                }
+            
+            if (sx > x && sy < y && checks.bishopCheckSW(board, sx, sy, x, y)) {
+                return true;                               
+            }  
+            
+            if (sx < x && sy > y && checks.bishopCheckNE(board, sx, sy, x, y)) {
                 return true;                                
             }
-            if (sx < x && sy < y) {
-                int k = 0;
-                for (int i = sx + 1; i < x; i++) {
-                    k++;
-                    if (board[sy + k][i] != 0) {
-                        return false;
-                    }
-                }
+            if (sx < x && sy < y && checks.bishopCheckSE(board, sx, sy, x, y)) {
                 return true;      
             }             
         }        
@@ -243,16 +206,18 @@ public class Moves {
     }    
      
     /**
-     * kuningataren siirrot
-     * @param locations omien nappuloiden sijannit
-     * @param sx siirrettävän nappulan alku x-koordinaatti
-     * @param sy siirrettävän nappulan alku y-koordinaatti
-     * @param x siirettävän nappulan loppu x-koordinaatti
-     * @param y siirettävän nappulan loppu y-koordinaatti
-     * @return palauttaa true jos siirton on mahdollinen
+     * Tarkistaa voidaanko kuningatarta siirtää alkuruudusta kohderuutuun.
+     * 
+     * @param board shakkilauta
+     * @param locations omien nappuloiden sijannit.
+     * @param sx siirrettävän nappulan alku x-koordinaatti.
+     * @param sy siirrettävän nappulan alku y-koordinaatti.
+     * @param x siirettävän nappulan loppu x-koordinaatti.
+     * @param y siirettävän nappulan loppu y-koordinaatti.
+     * @return palauttaa true jos siirton on mahdollinen.
      */ 
     public boolean moveQueen(int[][]board, int[]locations, int sx, int sy, int x, int y) {
-        if (moveRook(board, locations, sx, sy, x, y) == true || moveBishop(board, locations, sx, sy, x, y) == true) {
+        if (moveRook(board, locations, sx, sy, x, y) || moveBishop(board, locations, sx, sy, x, y)) {
             return true;
         }
         return false;

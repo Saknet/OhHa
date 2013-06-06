@@ -1,17 +1,17 @@
 
 package chess;
 
-import chess.game.Chess;
-import chess.gui.Interface;
+import chess.gui.Gui;
 
 
 public class Main {
-    // ei toimi graafinen käyttis vielä, tosi basic(siirrot ainoat komennot) tekstipohjaisella voi pelailla
+    /**
+     * Metodi graafisen käyttöliittymän.
+     * @param args
+     */
     public static void main(String[] args) {
-        Interface gui = new Interface();
+        Gui gui = new Gui();
         gui.run();
-        Chess chess = new Chess();
-        chess.run();
 
     }
     

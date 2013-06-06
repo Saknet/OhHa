@@ -1,7 +1,9 @@
 
 package chess.domain;
 /** 
- * pahasti keskenkeräinen luokka, luovutus nappi, voittaminen, undonappi yms tänne
+ * tämä luokka saattaa poistua kokonaan jos aika ei riitä, tarkoitus olisi tänne 
+ * tehdä siirron peruutus ja pelitilanteen talletus mutta vasta kun kaikki muu 
+ * on valmista
  */ 
 public class Player {
     private int [][] boardBefore;
@@ -10,25 +12,6 @@ public class Player {
     public Player() {
         this.boardBefore = new int[8][8];
         this.boardAfter = new int[8][8];
-    }
-    
-    public String giveUp(int turns) {
-        String string = "";
-        if (turns % 2 == 0) {
-            string = WhiteWins();
-        } else {
-            string = BlackWins();
-        }
-        return string;
-    }
-    
-    public String BlackWins() {
-        return "Black wins!";
-    }
-    
-   public String WhiteWins() {
-       return "White wins!";
-        
     }    
  
    /** 
@@ -67,5 +50,7 @@ public class Player {
     public void undo(){
         
     }
+    
+
     
 }

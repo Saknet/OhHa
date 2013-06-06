@@ -2,8 +2,8 @@
 package chess.domain;
 
 /**
- * Tämä luokka  tarkistaa onko kuningas shakiss myöhemmin olis tarkoitus lisätä 
- * myös shakkimatti ominaisuus jos semmoisen osaan tehdä
+ * Tämä luokka  tarkistaa onko kuningas shakissa myöhemmin olis tarkoitus lisätä 
+ * myös shakkimatti ominaisuus jos semmoisen osaan tehdä.
  */
 
 public class CheckMate {
@@ -14,6 +14,12 @@ public class CheckMate {
     private int x;
     private int y;
     
+    /**
+     * Luokan konstruktori, luodaan Moves olio jota tämä luokka käyttää määrittelemään
+     * uhkaako tietyn nappulan siirto kuningasta. Luodaan whites ja blacks arrayt 
+     * kaikkien nappuloiden sijanteja varten. Luodaan x ja y int muuttujat määrittelemään
+     * kyseisen kuninkaan sijanti shakkilaudalla.
+     */     
     public CheckMate() {
 
         this.moves = new Moves();
@@ -22,6 +28,11 @@ public class CheckMate {
         this.x = 0;
         this.y = 0;
     }
+    
+   /** 
+     * Metodi joka lisää mustien ja valkoisten nappuloiden sijannit arrayhen.
+     * @param board tämän hetken shakkilauta.
+     */    
     
     public void addPieces(int[][]board) {
         int k = 0;
@@ -42,10 +53,10 @@ public class CheckMate {
     }    
 
     /**
-     * tarkistaa voiko nappula "syödä" kuninkaan seuravalla siirolla
+     * Tarkistaa voiko nappula "syödä" kuninkaan seuravalla siirolla
      * ensin laitettaan valkoisten ja mustien nappuloiden sijannit arrayihin
      * sitten etitään kuninkaan sijanti
-     * lopulta katsotaan voiko annettu nappula shakittaa vastapuolen kuningasta
+     * lopulta katsotaan voiko annettu nappula shakittaa vastapuolen kuningasta.
      * @param board tämän hetken shakki lauta
      * @param piece shakkinappulan numero, tämä määrää kumpi puoli on hyökkääjä
      * @param sx hyökkävän nappulan x - koordinaatti
@@ -55,10 +66,10 @@ public class CheckMate {
     public boolean canAttackKing(int[][] board, int piece, int sx, int sy) {    
         addPieces(board);
         findKing(board, piece, sx, sy);
-        if (piece % 2 == 0 && checkWhiteKing(board, piece, sx, sy, x, y) == true) {
+        if (piece % 2 == 0 && checkWhiteKing(board, piece, sx, sy, x, y)) {
             return true;
             }
-        if (piece % 2 != 0 && checkBlackKing(board, piece, sx, sy, x, y) == true) {
+        if (piece % 2 != 0 && checkBlackKing(board, piece, sx, sy, x, y)) {
             return true;        
         }                  
        
@@ -67,7 +78,7 @@ public class CheckMate {
     } 
     
     /**
-     * tarkistaa voiko nappula "syödä" kuninkaan seuravalla siirolla
+     * Tarkistaa voiko nappula "syödä" kuninkaan seuravalla siirolla.
      * @param board tämän hetken shakki lauta
      * @param piece shakkinappulan numero, tämä määrää kumpi puoli on hyökkääjä
      * @param sx hyökkävän nappulan x - koordinaatti
@@ -89,7 +100,7 @@ public class CheckMate {
         }               
     }
     /**
-     * tarkistaa onko valkoinen kuningas hyökkäyksen kohteena
+     * Tarkistaa onko valkoinen kuningas hyökkäyksen kohteena.
      * @param board tämän hetken shakki lauta
      * @param piece siirtyneen nappulan numero
      * @param sx hyökkävän mustan nappulan x - koordinaatti
@@ -99,26 +110,26 @@ public class CheckMate {
      * @return palauttaa arvoksi true jos valkoinen kuningas on hyökkäyksen kohteena
      */  
     public boolean checkWhiteKing(int[][] board, int piece, int sx, int sy, int x, int y) {
-        if (piece == 2 && moves.moveBlackPawn(blacks, whites, sx, sy, x, y) == true) {     
+        if (piece == 2 && moves.moveBlackPawn(blacks, whites, sx, sy, x, y)) {     
             return true;
         }        
-        if (piece == 4 && moves.moveRook(board, blacks, sx, sy, x, y) == true) {         
+        if (piece == 4 && moves.moveRook(board, blacks, sx, sy, x, y)) {         
             return true;
         } 
-        if (piece == 6 && moves.moveKnight(blacks, sx, sy, x, y) == true) {   
+        if (piece == 6 && moves.moveKnight(blacks, sx, sy, x, y)) {   
             return true;            
         } 
-        if (piece == 8 && moves.moveBishop(board, blacks, sx, sy, x, y) == true) { 
+        if (piece == 8 && moves.moveBishop(board, blacks, sx, sy, x, y)) { 
             return true;            
         }        
-        if (piece == 10 && moves.moveQueen(board, blacks, sx, sy, x, y) == true) {
+        if (piece == 10 && moves.moveQueen(board, blacks, sx, sy, x, y)) {
             return true;            
         }        
         return false;
     } 
     
      /**
-      * tarkistaa onko musta kuningas hyökkäyksen kohteena
+      * Tarkistaa onko musta kuningas hyökkäyksen kohteena.
       * @param board tämän hetken shakki lauta
       * @param piece siirtyneen nappulan numero
       * @param sx hyökkävän valkoisen nappulan x - koordinaatti
@@ -128,19 +139,19 @@ public class CheckMate {
      * @return palauttaa arvoksi true jos musta kuningas on hyökkäyksen kohteena
      */    
     public boolean checkBlackKing(int[][] board, int piece, int sx, int sy, int x, int y) {       
-        if (piece == 1 && moves.moveWhitePawn(whites, blacks, sx, sy, x, y) == true) {  
+        if (piece == 1 && moves.moveWhitePawn(whites, blacks, sx, sy, x, y)) {  
             return true;
         }    
-        if (piece == 3 && moves.moveRook(board, whites, sx, sy, x, y) == true) {  
+        if (piece == 3 && moves.moveRook(board, whites, sx, sy, x, y)) {  
             return true;
         }  
-        if (piece == 5 && moves.moveKnight(whites, sx, sy, x, y) == true) {  
+        if (piece == 5 && moves.moveKnight(whites, sx, sy, x, y)) {  
             return true;
         }   
-        if (piece == 7 && moves.moveBishop(board, whites, sx, sy, x, y) == true) {  
+        if (piece == 7 && moves.moveBishop(board, whites, sx, sy, x, y)) {  
             return true;
         }
-        if (piece == 9 && moves.moveQueen(board, whites, sx, sy, x, y) == true) { 
+        if (piece == 9 && moves.moveQueen(board, whites, sx, sy, x, y)) { 
             return true;
         }         
         return false;

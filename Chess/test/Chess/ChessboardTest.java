@@ -30,6 +30,7 @@ public class ChessboardTest {
     
     @Before
     public void setUp() {
+        board.newBoard();
         board.addPieces();
     }
     

@@ -30,6 +30,7 @@ public class ChessTest {
     
     @Before
     public void setUp() {
+        board.newBoard();
         board.addPieces();
     }
     
@@ -51,5 +52,18 @@ public class ChessTest {
         assertEquals(board.getMoveW(), true);     
         board.whiteTurn(1, 0, 0, 2);
         assertEquals(board.getMoveW(), false);  
-    }    
+    }
+    
+    @Test
+    public void getInfoStart() {
+        assertEquals(chess.getInfo(), 0);
+    }
+    
+    @Test
+    public void setInfoKingDead() {
+        chess.setInfo(4);
+        assertEquals(chess.getInfo(), 4);
+    }
+    
+       
 }
