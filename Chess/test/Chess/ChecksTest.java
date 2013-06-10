@@ -92,7 +92,7 @@ public class ChecksTest {
     @Test
     public void rookCheckVerticalTrue() {
         int[][] board2 = new int[8][8];
-        board2 = this.board;
+        board2 = cb.getBoard();
         assertEquals(checks.rookCheckHorizontal(board2, 0, 5, 0, 7), true);       
     }
     

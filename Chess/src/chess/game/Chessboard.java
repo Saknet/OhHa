@@ -14,6 +14,7 @@ public class Chessboard {
     private int [] blacks;
     private boolean blackMove;
     private boolean whiteMove;
+    private Piece piece;
 
     /**
      * Luokan konstruktori, luodaan Moves olio jota tämä luokka käyttää määrittelemään
@@ -31,6 +32,7 @@ public class Chessboard {
         this.moves = new Moves();
         this.blackMove = false;
         this.whiteMove = false;
+
         
     } 
     
@@ -45,7 +47,7 @@ public class Chessboard {
          * 5 = valkoinen ratsu, 6 = musta ratsu, 7 = valkoinen lähetti, 8 = musta lähetti
          * 9 = valkoinen kuningatar, 10 = musta kuningatar, 11 = valkoinen kuningas
          * 12 = musta kuningas, 0 = tyhjä
-         */        
+         */    
         this.board = new int[][] {{4,6,8,10,12,8,6,4},
                                   {2,2,2,2,2,2,2,2},
                                   {0,0,0,0,0,0,0,0},
@@ -54,8 +56,9 @@ public class Chessboard {
                                   {0,0,0,0,0,0,0,0},
                                   {1,1,1,1,1,1,1,1},
                                   {3,5,7,9,11,7,5,3}};
-        
+               
     }
+  
     
     /** 
      * Metodi joka lisää mustien ja valkoisten nappuloiden sijannit arrayhen.
@@ -91,24 +94,24 @@ public class Chessboard {
      */
     public void blackTurn(int sx, int sy, int ex, int ey) { 
         blackMove = false;
-        int piece = getPiece(sx, sy); 
-        if (piece == 2 && moves.moveBlackPawn(blacks, whites, sx, sy, ex, ey)) {  
-            moveBlack(sx, sy, ex, ey, piece); 
+        int p = getPiece(sx, sy); 
+        if (piece.BLACKPAWN.getPiece() == p  && moves.moveBlackPawn(blacks, whites, sx, sy, ex, ey)) {  
+            moveBlack(sx, sy, ex, ey, p); 
         }    
-        if (piece == 4 && moves.moveRook(board, blacks, sx, sy, ex, ey)) {  
-            moveBlack(sx, sy, ex, ey, piece);           
+        if (piece.BLACKROOK.getPiece() == p  && moves.moveRook(board, blacks, sx, sy, ex, ey)) {  
+            moveBlack(sx, sy, ex, ey, p);           
         }  
-        if (piece == 6 && moves.moveKnight(blacks, sx, sy, ex, ey)) {  
-            moveBlack(sx, sy, ex, ey, piece);           
+        if (piece.BLACKKNIGHT.getPiece() == p && moves.moveKnight(blacks, sx, sy, ex, ey)) {  
+            moveBlack(sx, sy, ex, ey, p);           
         }   
-        if (piece == 8 && moves.moveBishop(board, blacks, sx, sy, ex, ey)) {  
-            moveBlack(sx, sy, ex, ey, piece);
+        if (piece.BLACKBISHOP.getPiece() == p  && moves.moveBishop(board, blacks, sx, sy, ex, ey)) {  
+            moveBlack(sx, sy, ex, ey, p);
         }
-        if (piece == 10 && moves.moveQueen(board, blacks, sx, sy, ex, ey)) { 
-            moveBlack(sx, sy, ex, ey, piece);
+        if (piece.BLACKQUEEN.getPiece() == p  && moves.moveQueen(board, blacks, sx, sy, ex, ey)) { 
+            moveBlack(sx, sy, ex, ey, p);
         }        
-        if (piece == 12 && moves.moveKing(blacks, sx, sy, ex, ey)) { 
-            moveBlack(sx, sy, ex, ey, piece);
+        if (piece.BLACKKING.getPiece() == p  && moves.moveKing(blacks, sx, sy, ex, ey)) { 
+            moveBlack(sx, sy, ex, ey, p);
         }
     }  
     
@@ -123,24 +126,24 @@ public class Chessboard {
      */
     public void whiteTurn(int sx, int sy, int ex, int ey) {
         whiteMove = false;
-        int piece = getPiece(sx, sy); 
-        if (piece == 1 && moves.moveWhitePawn(whites, blacks, sx, sy, ex, ey)) {         
-            moveWhite(sx, sy, ex, ey, piece);           
+        int p = getPiece(sx, sy); 
+        if (piece.WHITEPAWN.getPiece() == p && moves.moveWhitePawn(whites, blacks, sx, sy, ex, ey)) {         
+            moveWhite(sx, sy, ex, ey, p);           
         }  
-        if (piece == 3 && moves.moveRook(board, whites, sx, sy, ex, ey)) {         
-            moveWhite(sx, sy, ex, ey, piece);           
+        if (piece.WHITEKNIGHT.getPiece() == p && moves.moveRook(board, whites, sx, sy, ex, ey)) {         
+            moveWhite(sx, sy, ex, ey, p);           
         } 
-        if (piece == 5 && moves.moveKnight(whites, sx, sy, ex, ey)) {  
-            moveWhite(sx, sy, ex, ey, piece);           
+        if (piece.WHITEBISHOP.getPiece() == p && moves.moveKnight(whites, sx, sy, ex, ey)) {  
+            moveWhite(sx, sy, ex, ey, p);           
         } 
-        if (piece == 7 && moves.moveBishop(board, whites, sx, sy, ex, ey)) {  
-            moveWhite(sx, sy, ex, ey, piece);           
+        if (piece.WHITEBISHOP.getPiece() == p && moves.moveBishop(board, whites, sx, sy, ex, ey)) {  
+            moveWhite(sx, sy, ex, ey, p);           
         }        
-        if (piece == 9 && moves.moveQueen(board, whites, sx, sy, ex, ey)) {         
-            moveWhite(sx, sy, ex, ey, piece);
+        if (piece.WHITEQUEEN.getPiece() == p && moves.moveQueen(board, whites, sx, sy, ex, ey)) {         
+            moveWhite(sx, sy, ex, ey, p);
         }        
-        if (piece == 11 && moves.moveKing(whites, sx, sy, ex, ey)) {         
-            moveWhite(sx, sy, ex, ey, piece);
+        if (piece.WHITEKING.getPiece() == p && moves.moveKing(whites, sx, sy, ex, ey)) {         
+            moveWhite(sx, sy, ex, ey, p);
         }
     }
     

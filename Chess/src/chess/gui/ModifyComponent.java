@@ -62,6 +62,6 @@ public class ModifyComponent {
         field.setSize(xSize, ySize);
         field.setFont(new Font("Serif", Font.BOLD, fontsize));
         container.add(field);
-    }    
+    }      
     
 }

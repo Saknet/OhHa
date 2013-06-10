@@ -6,13 +6,17 @@ import chess.game.Chessboard;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /** 
  * Piirtoalusta luokka.
  */ 
 public class DrawingPanel extends JPanel {
     private Chess chess;
+    private ModifyComponent mC;
     ImageIcon whitePawn;
     ImageIcon blackPawn;
     ImageIcon whiteRook;
@@ -25,6 +29,11 @@ public class DrawingPanel extends JPanel {
     ImageIcon blackQueen;
     ImageIcon whiteKing;
     ImageIcon blackKing;
+    private JTextField startxField;
+    private JTextField startyField;
+    private JTextField endxField;
+    private JTextField endyField;  
+    private JButton moves;    
  
     /** 
      * Luokan konstruktori,ladataan kaikkien nappuloiden kuvat.
@@ -147,6 +156,5 @@ public class DrawingPanel extends JPanel {
             }
         }        
         }        
-    }
-                               
+    }                                 
 }
