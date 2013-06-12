@@ -84,10 +84,10 @@ public class CheckMateTest {
     
     @Test
     public void KingLocation() {
-        cm.findKing(board, 3, 0, 7);
+        cm.findKing(board, 3);
         assertEquals(cm.getX(), 3);
         assertEquals(cm.getY(), 3);
-        cm.findKing(board, 10, 3, 0); 
+        cm.findKing(board, 10); 
         assertEquals(cm.getX(), 3);
         assertEquals(cm.getY(), 4);        
     }

@@ -1,6 +1,7 @@
 
 package chess.game;
 
+import chess.domain.Piece;
 import chess.domain.Moves;
 
     /** 
@@ -130,10 +131,10 @@ public class Chessboard {
         if (piece.WHITEPAWN.getPiece() == p && moves.moveWhitePawn(whites, blacks, sx, sy, ex, ey)) {         
             moveWhite(sx, sy, ex, ey, p);           
         }  
-        if (piece.WHITEKNIGHT.getPiece() == p && moves.moveRook(board, whites, sx, sy, ex, ey)) {         
+        if (piece.WHITEROOK.getPiece() == p && moves.moveRook(board, whites, sx, sy, ex, ey)) {         
             moveWhite(sx, sy, ex, ey, p);           
         } 
-        if (piece.WHITEBISHOP.getPiece() == p && moves.moveKnight(whites, sx, sy, ex, ey)) {  
+        if (piece.WHITEKNIGHT.getPiece() == p && moves.moveKnight(whites, sx, sy, ex, ey)) {  
             moveWhite(sx, sy, ex, ey, p);           
         } 
         if (piece.WHITEBISHOP.getPiece() == p && moves.moveBishop(board, whites, sx, sy, ex, ey)) {  
@@ -314,8 +315,6 @@ public class Chessboard {
      */    
     public boolean getMoveB() {
         return blackMove;
-    }   
-   
-   
-    
+    } 
+            
 }

@@ -1,20 +1,22 @@
 
 package chess.gui;
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 
 /**
- * Tämä luokka kuuntelee move piece nappia jos on mustan vuoro siirtää nappuloita.
+ * Tämä luokka kuuntelee move piece nappia jos on valkoisen vuoro siirtää nappuloita.
  */
-public class BlackListener implements ActionListener {
+public class MovesListener implements ActionListener {
     private Gui gui;
     private JTextField startx;
     private JTextField starty;
     private JTextField endx;
     private JTextField endy;
-
+    private int turn;
+        
     /**
      * Luokan konstruktori.
      *
@@ -24,12 +26,13 @@ public class BlackListener implements ActionListener {
      * @param endx X - loppukoordinaatin tekstikentän sisältö.
      * @param endy Y - loppukoordinaatin tekstikentän sisältö.
      */     
-    public BlackListener(Gui gui, JTextField startx, JTextField starty, JTextField endx, JTextField endy) {
+    public MovesListener(Gui gui, JTextField startx, JTextField starty, JTextField endx, JTextField endy, int turn) {
         this.gui = gui;
         this.startx = startx;
         this.starty = starty;
         this.endx = endx;
         this.endy = endy;
+        this.turn = turn;
     }
 
     /**
@@ -37,7 +40,7 @@ public class BlackListener implements ActionListener {
      * varten kun move piece nappia painetaan.
      *
      * @param ae Napinpainallus.
-     */    
+     */     
     @Override
     public void actionPerformed(ActionEvent ae) {
         String text = startx.getText();
@@ -52,7 +55,15 @@ public class BlackListener implements ActionListener {
         String text4 = endy.getText();          
         int ey = Integer.parseInt(text4); 
         gui.setEY(ey);
-        gui.moveBlack();        
+        if (sx < 0 || sx > 7 || sy < 0 || sy > 7) {
+            gui.turns();
+        }
+        if (turn % 2 == 0) {
+            gui.moveBlack();
+        } else {
+        gui.moveWhite();
+        }
+
     }
     
 }

@@ -10,7 +10,6 @@ public class Moves {
      /**
      * Luokan konstruktori.
      *
-     * @param checks, olio joka tarkistaa muutaman asian siirtojen yhteydessä.
      */   
     public Moves() {
         this.checks = new Checks();
@@ -69,7 +68,7 @@ public class Moves {
      * @return palauttaa true jos siirton on mahdollinen.
      */
     public boolean moveBlackPawn(int[]blacks, int[]whites, int sx, int sy, int x, int y) {
-        if (x == sx && checks.empty(blacks, x, y)) {        
+        if (x == sx && checks.empty(blacks, x, y) && checks.empty(whites, x, y)) {        
             if (sy == 1 && y == 3) {
                 return true;
             }
@@ -95,7 +94,7 @@ public class Moves {
      * @return palauttaa true jos siirton on mahdollinen.
      */ 
     public boolean moveWhitePawn(int[]whites, int[]blacks, int sx, int sy, int x, int y) {
-        if (x == sx && checks.empty(whites, x, y)) {
+        if (x == sx && checks.empty(whites, x, y) && checks.empty(blacks, x, y)) {
             if (sy == 6 && y == 4) {
                 return true;
             }
@@ -182,7 +181,7 @@ public class Moves {
      * @param sy siirrettävän nappulan alku y-koordinaatti.
      * @param x siirettävän nappulan loppu x-koordinaatti.
      * @param y siirettävän nappulan loppu y-koordinaatti.
-     * @return palauttaa true jos siirton on mahdollinen.
+     * @return palauttaa true jos siirto on mahdollinen.
      */ 
     public boolean moveBishop(int[][]board, int[]locations, int sx, int sy, int x, int y) {
         if (checks.onBoard(x, y) && y < 8 && checks.empty(locations, x, y)) {

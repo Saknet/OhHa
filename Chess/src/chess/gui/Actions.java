@@ -16,7 +16,7 @@ public class Actions implements ActionListener  {
     /**
      * Luokan konstruktori.
      *
-     * @param gui Olio, jota kuunellaan.
+     * @param ui Olio, jota kuunellaan.
      */    
     public Actions(Gui ui) {
         this.ui = ui;

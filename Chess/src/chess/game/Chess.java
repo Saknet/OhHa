@@ -34,6 +34,8 @@ public class Chess {
      * valkoisten nappuloiden sijannit omiin arraynsa.
      */    
     public void run () {
+        this.info = 0;
+        this.turns = 1;
         this.board.newBoard();
         this.board.addPieces();
     }
@@ -61,15 +63,20 @@ public class Chess {
      * @param ex siirettävän nappulan x - loppukoordinaatti.
      * @param ey siirettävän nappulan y - loppukoordinaatti.
      */     
-    public void blackTurn(int sx, int sy, int ex, int ey) {      
+    public void blackTurn(int sx, int sy, int ex, int ey) { 
+        int piece = board.getPiece(sx, sy);        
         board.blackTurn(sx, sy, ex, ey);
         if (board.getMoveB()) { 
             setInfo(0);
             turns++;
-        }        
-        if (canAttackKing(board.getBoard(), board.getPiece(sx, sy), ex, ey)) {
+        if (canAttackKing(board.getBoard(), piece, ex, ey)) {
             setInfo(1);
-        }
+            cm.addSquares();
+            if (cm.canKingMove() && !cm.canTakeDownAttacker(ex, ey)) {
+                setInfo(3);
+            }
+        }            
+        }        
         if (board.getWhite(12) == 99) {
             setInfo(3);
         }         
@@ -83,15 +90,20 @@ public class Chess {
      * @param ex siirettävän nappulan x - loppukoordinaatti.
      * @param ey siirettävän nappulan y - loppukoordinaatti.
      */ 
-    public void whiteTurn(int sx, int sy, int ex, int ey) {        
+    public void whiteTurn(int sx, int sy, int ex, int ey) {  
+        int piece = board.getBoard()[sy][sx];
         board.whiteTurn(sx, sy, ex, ey);  
         if (board.getMoveW()) {
             setInfo(0);            
             turns++;
-        }         
-        if (canAttackKing(board.getBoard(), board.getPiece(sx, sy), ex, ey)) {
+        if (canAttackKing(board.getBoard(), piece, ex, ey)) {
             setInfo(2);
-        }
+            cm.addSquares();
+            if (cm.canKingMove() && !cm.canTakeDownAttacker(ex, ey)) {
+                setInfo(4);
+            }            
+        }            
+        }         
         if (board.getBlack(4) == 99) {
             setInfo(4);
         }          
@@ -129,5 +141,5 @@ public class Chess {
     public int getInfo() {
         return this.info;
     }
-
+       
 }

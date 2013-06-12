@@ -112,8 +112,13 @@ public class Checks {
      * @return palauttaa true jos siirton on mahdollinen.
      */    
     public boolean bishopCheckNW(int[][]board, int sx, int sy, int x, int y) {
+        if ((sx - x) != (sy - y)) {
+            return false;
+        }        
+        int k = 0;
         for (int i = sx - 1; i > x; i--) {
-            if (board[y + i][x + i] != 0) {
+            k++;
+            if (board[sy - k][i] != 0) {
                 return false;
             }
         }
@@ -132,8 +137,13 @@ public class Checks {
      * @return palauttaa true jos siirton on mahdollinen.
      */     
     public boolean bishopCheckSW(int[][]board, int sx, int sy, int x, int y) {
+        if ((sx - x) != (y - sy)) {
+            return false;
+        }        
+        int k = 0;
         for (int i = sx - 1; i > x; i--) {
-            if (board[y - i][x + i] != 0) {
+            k++;
+            if (board[sy + k][i] != 0) {
                 return false;
             }
         }
@@ -152,8 +162,12 @@ public class Checks {
      * @return palauttaa true jos siirton on mahdollinen.
      */     
     public boolean bishopCheckNE(int[][]board, int sx, int sy, int x, int y) {
+        if ((x - sx) != (sy - y)) {
+            return false;
+        }
         int k = 0;                
         for (int i = sx + 1; i < x; i++) {
+            k++;            
             if (board[sy - k][i] != 0) {
                 return false;
             }
@@ -173,6 +187,9 @@ public class Checks {
      * @return palauttaa true jos siirton on mahdollinen.
      */     
     public boolean bishopCheckSE(int[][]board, int sx, int sy, int x, int y) {
+        if ((x - sx) != (y - sy)) {
+            return false;
+        }        
         int k = 0;
         for (int i = sx + 1; i < x; i++) {
             k++;

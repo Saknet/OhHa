@@ -1,5 +1,5 @@
 
-package chess.game;
+package chess.domain;
 
 public enum Piece {
     WHITEPAWN(1), WHITEROOK(3), WHITEKNIGHT(5), WHITEBISHOP(7), WHITEQUEEN(9), WHITEKING(11),
