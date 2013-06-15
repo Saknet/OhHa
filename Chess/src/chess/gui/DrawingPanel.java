@@ -2,38 +2,30 @@
 package chess.gui;
 
 import chess.game.Chess;
-import chess.game.Chessboard;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /** 
  * Piirtoalusta luokka.
  */ 
 public class DrawingPanel extends JPanel {
     private Chess chess;
-    private ModifyComponent mC;
-    ImageIcon whitePawn;
-    ImageIcon blackPawn;
-    ImageIcon whiteRook;
-    ImageIcon blackRook;
-    ImageIcon whiteKnight;
-    ImageIcon blackKnight;   
-    ImageIcon whiteBishop;
-    ImageIcon blackBishop;
-    ImageIcon whiteQueen;
-    ImageIcon blackQueen;
-    ImageIcon whiteKing;
-    ImageIcon blackKing;
-    private JTextField startxField;
-    private JTextField startyField;
-    private JTextField endxField;
-    private JTextField endyField;  
-    private JButton moves;    
+    private ImageIcon whitePawn;
+    private ImageIcon blackPawn;
+    private ImageIcon whiteRook;
+    private ImageIcon blackRook;
+    private ImageIcon whiteKnight;
+    private ImageIcon blackKnight;   
+    private ImageIcon whiteBishop;
+    private ImageIcon blackBishop;
+    private ImageIcon whiteQueen;
+    private ImageIcon blackQueen;
+    private ImageIcon whiteKing;
+    private ImageIcon blackKing;   
+    private ImageIcon numbers;
+    private ImageIcon letters;
  
     /** 
      * Luokan konstruktori,ladataan kaikkien nappuloiden kuvat.
@@ -67,7 +59,11 @@ public class DrawingPanel extends JPanel {
         imageURL = cldr.getResource("images/whiteking.png"); 
         this.whiteKing = new ImageIcon(imageURL);        
         imageURL = cldr.getResource("images/blackking.png"); 
-        this.blackKing = new ImageIcon(imageURL);           
+        this.blackKing = new ImageIcon(imageURL);      
+        imageURL = cldr.getResource("images/numbers.png"); 
+        this.numbers = new ImageIcon(imageURL);  
+        imageURL = cldr.getResource("images/letters.png"); 
+        this.letters = new ImageIcon(imageURL);          
           
     }
 
@@ -77,6 +73,7 @@ public class DrawingPanel extends JPanel {
         super.paintComponent(graphics);
         paintBoard(graphics);
         paintPieces(graphics);
+        paintNumbersLetters(graphics);
         
     }
     
@@ -86,7 +83,7 @@ public class DrawingPanel extends JPanel {
      * @param graphics olio.
      */ 
     
-    public void paintBoard(Graphics graphics) {
+    private void paintBoard(Graphics graphics) {
         graphics.setColor(Color.YELLOW);
         graphics.fillRect(350, 100, 367, 367);
         graphics.setColor(Color.BLACK);  
@@ -106,12 +103,19 @@ public class DrawingPanel extends JPanel {
         graphics.fillRect(350, 422, 367, 1);        
     }
     
+    private void paintNumbersLetters(Graphics graphics) {
+        numbers.paintIcon(this, graphics, 310, 100);
+        numbers.paintIcon(this, graphics, 719, 100); 
+        letters.paintIcon(this, graphics, 350, 54);
+        letters.paintIcon(this, graphics, 350, 468);        
+    }
+    
     /** 
      * Metodi joka maalailee nappulat shakkilaudalle
      * 
      * @param graphics olio.
      */         
-    public void paintPieces(Graphics graphics) {
+    private void paintPieces(Graphics graphics) {
         chess.copyBoard();
         int [][] cboard = chess.getBoard();
         if (cboard != null) {

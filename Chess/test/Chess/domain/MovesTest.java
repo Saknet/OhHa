@@ -1,5 +1,5 @@
 
-package Chess;
+package Chess.domain;
 
 import chess.domain.Moves;
 import org.junit.After;

@@ -4,10 +4,14 @@ package chess.gui;
 import chess.game.Chess;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Font;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -41,6 +45,7 @@ public class Gui implements Runnable {
     private int ex;
     private int ey;
 
+
     /**
      * Luokan konstruktori. Luodaan Chess olio joka tulee pyörittämään pelilogiikkaa.
      */
@@ -68,18 +73,31 @@ public class Gui implements Runnable {
     private void createComponents(Container container) {
         this.paint = new DrawingPanel(chess);
         this.mC = new ModifyComponent();
-
+        
+        JMenuBar menu = new JMenuBar();
+        JMenu file = new JMenu("File");
+        mC.modifyJMenu(file, 15, menu);
+        
+        JMenuItem load = new JMenuItem("Load game");
+        mC.modifyJMenuItem(load, 15, file);        
+        load.addActionListener(new MenuActions(this));
+        
+        JMenuItem save = new JMenuItem("Save game");
+        mC.modifyJMenuItem(save, 15, file);         
+        save.addActionListener(new MenuActions(this));
+       
+        
         start = new JButton("Start new game");
         mC.modifyJButton(start, 50, 50, 150, 50, 12, container);
-        start.addActionListener(new Actions(this));
-
+        start.addActionListener(new ButtonActions(this));
+        
         giveUp = new JButton("Give up");
         mC.modifyJButton(giveUp, 50, 150, 150, 50, 12, container);
-        giveUp.addActionListener(new Actions(this));
-
+        giveUp.addActionListener(new ButtonActions(this));
+        
         exit = new JButton("Exit");
         mC.modifyJButton(exit, 50, 250, 150, 50, 12, container);
-        exit.addActionListener(new Actions(this));
+        exit.addActionListener(new ButtonActions(this));
 
         startx = new JLabel("start X: ");
         mC.modifyJLabel(startx, 25, 350, 70, 50, 12, container);
@@ -111,11 +129,12 @@ public class Gui implements Runnable {
 
 
         turns = new JLabel("White turn ");
-        mC.modifyJLabel(turns, 375, 10, 100, 100, 14, container);
+        mC.modifyJLabel(turns, 375, -10, 100, 100, 16, container);
 
         info = new JLabel("");
-        mC.modifyJLabel(info, 500, 10, 200, 100, 14, container);
-
+        mC.modifyJLabel(info, 500, -10, 100, 100, 16, container);
+        
+        frame.setJMenuBar(menu);
         container.add(paint);
 
     }
@@ -143,6 +162,24 @@ public class Gui implements Runnable {
         this.frame.repaint();
         turns();
     }
+
+    /**
+     * Tämä metodi ilmoittaa logiikka luokalle että peli pitäisi tallentaa.
+     */
+    public void saveGame() throws IOException {
+        chess.saveGame();
+    }
+ 
+    /**
+     * Tämä metodi suorittaa pelin latauksen tiedostosta gui:n osalta.
+     */    
+    public void loadGame() throws FileNotFoundException {
+        chess.loadGame();
+        this.moves.setEnabled(true); 
+        this.frame.repaint();
+        update();        
+        turns();        
+    }    
 
     /**
      * Tämä metodi lähettää logiikka luokalle viestin että valkoista pitäisi siirtää.

@@ -68,3 +68,22 @@ ei suju hommat
 2h testeihin
 2h koodin paranteluun ja javadocsin päivittelyyn
 1h sekvenssikaavioihin
+
+8.6
+1h koodamiseen, enum yms
+
+9.6
+2h koodikatselmointiin
+1h koodamiseen
+
+10.1
+2h koodamista
+1h pajassa
+
+11.1
+3h koodamiseen
+
+12.1
+1h koodamiseen
+1h javadocs + projektin tarkistamista/kuntoon laittamista demoa varten
+

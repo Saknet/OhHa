@@ -2,9 +2,13 @@
 package chess.gui;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 
 /**
@@ -62,6 +66,16 @@ public class ModifyComponent {
         field.setSize(xSize, ySize);
         field.setFont(new Font("Serif", Font.BOLD, fontSize));
         container.add(field);
-    }      
+    }
+    
+    public void modifyJMenu(JMenu menu, int fontSize, JMenuBar menubar) {
+        menu.setFont(new Font("Serif", Font.BOLD, fontSize));
+        menubar.add(menu);
+    }
+    
+    public void modifyJMenuItem(JMenuItem menuitem, int fontSize, JMenu menu) {
+        menuitem.setFont(new Font("Serif", Font.BOLD, fontSize));
+        menu.add(menuitem);
+    }    
     
 }

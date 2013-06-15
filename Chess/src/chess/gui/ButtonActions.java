@@ -3,13 +3,18 @@ package chess.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JMenuItem;
 
 /**
  * Tämä luokka kuuntelee, mitä käyttöliittymän nappeja painetaan.
  */
 
-public class Actions implements ActionListener  {
+public class ButtonActions implements ActionListener  {
     private Gui ui;
     
     
@@ -18,7 +23,7 @@ public class Actions implements ActionListener  {
      *
      * @param ui Olio, jota kuunellaan.
      */    
-    public Actions(Gui ui) {
+    public ButtonActions(Gui ui) {
         this.ui = ui;
     }
 
@@ -38,7 +43,7 @@ public class Actions implements ActionListener  {
         }
         if (button.getText().equals("Give up")) {
             ui.endGame();
-        }        
+        }                  
     }
     
 }

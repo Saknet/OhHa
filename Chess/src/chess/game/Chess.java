@@ -2,6 +2,9 @@
 package chess.game;
 
 import chess.domain.CheckMate;
+import chess.domain.Menu;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /** 
  * kontrolloiva luokka, tämän luokan avulla GUI pyörittää itse pelilogiikkaa.
@@ -12,6 +15,7 @@ public class Chess {
     private CheckMate cm;
     private int[][] cb;
     private int info;
+    private Menu player;
 
     
     /**
@@ -26,6 +30,7 @@ public class Chess {
         this.cb =  new int[8][8];
         this.turns = 1;         
         this.info = 0;
+        this.player = new Menu();
 
     }
     
@@ -140,6 +145,18 @@ public class Chess {
      */     
     public int getInfo() {
         return this.info;
+    }
+    
+    public void saveGame() throws IOException {
+        player.save(board.getBoard(), turns, info);
+    }
+    
+    public void loadGame() throws FileNotFoundException {
+        int [][] cb = player.load();
+        board.setBoard(cb);
+        setInfo(player.loadInfo());
+        this.turns = player.loadTurns();
+        this.board.addPieces();        
     }
        
 }

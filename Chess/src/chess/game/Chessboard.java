@@ -316,5 +316,9 @@ public class Chessboard {
     public boolean getMoveB() {
         return blackMove;
     } 
+    
+    public void setBoard(int[][] cb) {
+        this.board = cb;
+    }
             
 }

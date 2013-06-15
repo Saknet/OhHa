@@ -1,5 +1,5 @@
 
-package Chess;
+package Chess.domain;
 
 import chess.domain.Checks;
 import chess.game.Chessboard;
@@ -103,24 +103,24 @@ public class ChecksTest {
     
     @Test
     public void bishopCheckNWTrue() {
-        assertEquals(checks.bishopCheckNW(this.board, 4, 5, 4, 7), true);       
+        assertEquals(checks.bishopCheckNW(this.board, 4, 5, 2, 3), true);       
     }
     
     @Test
     public void bishopCheckNETrue() {
-        assertEquals(checks.bishopCheckNE(this.board, 4, 5, 4, 7), true);       
+        assertEquals(checks.bishopCheckNE(this.board, 4, 5, 4, 7), false);       
     } 
     
     @Test
     public void bishopCheckSWTrue() {
-        assertEquals(checks.bishopCheckSW(this.board, 4, 5, 4, 7), true);       
+        assertEquals(checks.bishopCheckSW(this.board, 4, 5, 4, 7), false);       
     }   
 
     @Test
     public void bishopCheckSETrue() {
         int[][] board2 = new int[8][8];
         board2 = this.board;       
-        assertEquals(checks.bishopCheckSE(board2, 4, 5, 4, 9), true);       
+        assertEquals(checks.bishopCheckSE(board2, 4, 5, 4, 9), false);       
     }     
 
 }

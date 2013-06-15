@@ -1,5 +1,5 @@
 
-package Chess;
+package Chess.domain;
 
 import chess.domain.CheckMate;
 import chess.domain.Moves;
@@ -24,12 +24,12 @@ public class CheckMateTest {
     public CheckMateTest() {
         this.board = new int[][] {{0,0,8,10,0,0,6,4},
                                   {2,2,2,2,2,2,2,2},
-                                  {0,0,0,0,0,8,0,0},
+                                  {3,0,0,0,0,8,0,0},
                                   {9,0,0,12,0,0,0,3},
                                   {4,0,0,11,1,0,0,0},
                                   {0,5,0,0,0,0,0,5},
                                   {1,1,1,1,6,1,1,1},
-                                  {3,0,7,0,0,7,0,0}};  
+                                  {0,0,7,0,0,7,0,0}};  
               
         this.cm = new CheckMate();
         this.chess = new Chess();
@@ -98,11 +98,41 @@ public class CheckMateTest {
         assertEquals(cm.getBlack(15), 46);   
         assertEquals(cm.getBlack(8), 41);
         assertEquals(cm.getBlack(11), 71);    
-        assertEquals(cm.getWhite(6), 6);
-        assertEquals(cm.getWhite(12), 76);   
-        assertEquals(cm.getWhite(4), 15);
-        assertEquals(cm.getWhite(1), 73);          
+        assertEquals(cm.getWhite(6), 75);
+        assertEquals(cm.getWhite(12), 66);   
+        assertEquals(cm.getWhite(4), 44);
+        assertEquals(cm.getWhite(1), 3);          
     }
+    
+    @Test
+    public void canEliminateAttackerFalse() {
+        assertEquals(cm.canTakeDownAttacker(1, 6), false);
+    }
+
+    @Test
+    public void canEliminateAttackerTrue() {
+        assertEquals(cm.canTakeDownAttacker(4, 6), true);
+    }
+
+    @Test
+    public void canEliminateAttackerEmpty() {
+        assertEquals(cm.canTakeDownAttacker(1, 2), true);
+    }
+    @Test
+    public void canCheckMateTrue() {
+        cm.findKing(board, 9);
+        cm.addSquares();
+        assertEquals(cm.canKingMove(), true);
+    }
+
+    @Test
+    public void canCheckMateFalse() {
+        cm.findKing(board, 8);
+        cm.addSquares();
+        assertEquals(cm.canKingMove(), false);
+    }    
+    
+    
     
     
 }

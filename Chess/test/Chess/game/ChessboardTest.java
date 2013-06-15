@@ -1,5 +1,5 @@
 
-package Chess;
+package Chess.game;
 
 import chess.game.Chessboard;
 import org.junit.After;
