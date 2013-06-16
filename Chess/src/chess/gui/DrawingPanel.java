@@ -8,27 +8,72 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /** 
- * Piirtoalusta luokka.
+ * Piirtoalusta luokka, piirettään lauta ja laudalle reuna ja nappulat.
  */ 
 public class DrawingPanel extends JPanel {
+    /**
+     * Chess chess, Chess olio jonka kautta päästään käsiksi shakkilautaan.
+     */    
     private Chess chess;
+    /**
+     * ImageIcon whitePawn, valkoisen sotilaan imageiconi.
+     */    
     private ImageIcon whitePawn;
+    /**
+     * ImageIcon blackPawn, mustan sotilaan imageiconi.
+     */     
     private ImageIcon blackPawn;
+    /**
+     * ImageIcon whiteRook, valkoisen tornin imageiconi.
+     */     
     private ImageIcon whiteRook;
+    /**
+     * ImageIcon blackRook, mustan tornin imageiconi.
+     */      
     private ImageIcon blackRook;
+    /**
+     * ImageIcon whiteKnight, valkoisen ratsun imageiconi.
+     */     
     private ImageIcon whiteKnight;
-    private ImageIcon blackKnight;   
+    /**
+     * ImageIcon blackKnight, mustan ratsun imageiconi.
+     */      
+    private ImageIcon blackKnight;  
+    /**
+     * ImageIcon whiteBishop, valkoisen lähetin imageiconi.
+     */     
     private ImageIcon whiteBishop;
+    /**
+     * ImageIcon blackBishop, mustan lähetin imageiconi.
+     */      
     private ImageIcon blackBishop;
+    /**
+     * ImageIcon whiteQueen, valkoisen kuningattaren imageiconi.
+     */     
     private ImageIcon whiteQueen;
+    /**
+     * ImageIcon blackQueen, mustan kuningattaren imageiconi.
+     */      
     private ImageIcon blackQueen;
+    /**
+     * ImageIcon whiteKing, valkoisen kuninkaan imageiconi.
+     */     
     private ImageIcon whiteKing;
-    private ImageIcon blackKing;   
+    /**
+     * ImageIcon blackKing, mustan kuninkaan imageiconi.
+     */      
+    private ImageIcon blackKing; 
+    /**
+     * ImageIcon numbers, shakkilaudan reunalle tulevan numeroiden imageiconi.
+     */     
     private ImageIcon numbers;
+    /**
+     * ImageIcon letters, shakkilaudan reunalle tulevan kirjainten imageiconi.
+     */     
     private ImageIcon letters;
  
     /** 
-     * Luokan konstruktori,ladataan kaikkien nappuloiden kuvat.
+     * Luokan konstruktori,ladataan kaikkien nappuloiden ja shakkilaudan reunojen kuvat.
      * 
      * @param chess Chess olio, jonka avulla saadaan tämänhetkinen shakkilauta luokan käyttöön.
      */     
@@ -80,9 +125,8 @@ public class DrawingPanel extends JPanel {
     /** 
      * Metodi joka maalailee shakkilaudan.
      * 
-     * @param graphics olio.
-     */ 
-    
+     * @param graphics luokka.
+     */     
     private void paintBoard(Graphics graphics) {
         graphics.setColor(Color.YELLOW);
         graphics.fillRect(350, 100, 367, 367);
@@ -103,6 +147,11 @@ public class DrawingPanel extends JPanel {
         graphics.fillRect(350, 422, 367, 1);        
     }
     
+    /** 
+     * Metodi joka maalailee shakkilaudan reunat.
+     * 
+     * @param graphics luokka.
+     */    
     private void paintNumbersLetters(Graphics graphics) {
         numbers.paintIcon(this, graphics, 310, 100);
         numbers.paintIcon(this, graphics, 719, 100); 
@@ -113,47 +162,60 @@ public class DrawingPanel extends JPanel {
     /** 
      * Metodi joka maalailee nappulat shakkilaudalle
      * 
-     * @param graphics olio.
+     * @param graphics luokka.
      */         
     private void paintPieces(Graphics graphics) {
         chess.copyBoard();
         int [][] cboard = chess.getBoard();
+        
         if (cboard != null) {
         for (int i = 0; i < cboard.length; i++) {
             for (int j = 0; j < cboard.length; j++) {
+                
                 if (cboard[i][j] == 1) {
                     whitePawn.paintIcon(this, graphics,  350 + j * 46, 100 + i * 46);
                 }
+                
                 if (cboard[i][j] == 2) {
                     blackPawn.paintIcon(this, graphics,  350 + j * 46, 100 + i * 46);
                 }
+                
                 if (cboard[i][j] == 3) {
                     whiteRook.paintIcon(this, graphics,  350 + j * 46, 100 + i * 46);
                 }
+                
                 if (cboard[i][j] == 4) {
                     blackRook.paintIcon(this, graphics,  350 + j * 46, 100 + i * 46);
                 }
+                
                 if (cboard[i][j] == 5) {
                     whiteKnight.paintIcon(this, graphics,  350 + j * 46, 100 + i * 46);
                 }
+                
                 if (cboard[i][j] == 6) {
                     blackKnight.paintIcon(this, graphics,  350 + j * 46, 100 + i * 46);
                 }  
+                
                 if (cboard[i][j] == 7) {
                     whiteBishop.paintIcon(this, graphics,  350 + j * 46, 100 + i * 46);
-                }  
+                } 
+                
                 if (cboard[i][j] == 8) {
                     blackBishop.paintIcon(this, graphics,  350 + j * 46, 100 + i * 46);
                 }
+                
                 if (cboard[i][j] == 9) {
                     whiteQueen.paintIcon(this, graphics,  350 + j * 46, 100 + i * 46);
-                }     
+                } 
+                
                 if (cboard[i][j] == 10) {
                     blackQueen.paintIcon(this, graphics,  350 + j * 46, 100 + i * 46);
                 }
+                
                 if (cboard[i][j] == 11) {
                     whiteKing.paintIcon(this, graphics,  350 + j * 46, 100 + i * 46);
                 } 
+                
                 if (cboard[i][j] == 12) {
                     blackKing.paintIcon(this, graphics,  350 + j * 46, 100 + i * 46);
                 }                   

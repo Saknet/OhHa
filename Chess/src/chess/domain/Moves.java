@@ -4,13 +4,15 @@ package chess.domain;
 /**
  * Tämä luokka määrittelee kaikkien nappuloiden siirtojen laillisuuden.
  */
-public class Moves {
-    private Checks checks;
-       
+public class Moves {    
+    /**
+     * Olio Checks siirtojen lailisuuden tarkistamista varten.
+     */    
+    private Checks checks;       
      /**
-     * Luokan konstruktori.
-     *
+     * Luokan konstruktori. Luodaan uusi Checks olio.
      */   
+    
     public Moves() {
         this.checks = new Checks();
     }
@@ -27,31 +29,40 @@ public class Moves {
      */
     public boolean moveKing(int[]locations, int sx, int sy, int x, int y) {
         if (checks.onBoard(x, y) && checks.empty(locations, x, y)) {
+            
             if (sx - 1 == x && sy - 1 == y) {
                 return true;
             }
+            
             if (sx == x && sy - 1 == y) {
                 return true;
             }
+            
             if (sx + 1 == x && sy - 1 == y) {
                 return true;
             }
+            
             if (sx - 1 == x && sy == y) {
                 return true;
             }
+            
             if (sx + 1 == x && sy == y) {
                 return true;
             }
+            
             if (sx - 1 == x && sy + 1 == y) {
                 return true;
             }
+            
             if (sx == x && sy + 1 == y) {
                 return true;
             }
+            
             if (sx + 1 == x && sy + 1 == y) {
                 return true;
             }            
         }
+        
         return false;
         
     }
@@ -68,17 +79,21 @@ public class Moves {
      * @return palauttaa true jos siirton on mahdollinen.
      */
     public boolean moveBlackPawn(int[]blacks, int[]whites, int sx, int sy, int x, int y) {
-        if (x == sx && checks.empty(blacks, x, y) && checks.empty(whites, x, y)) {        
+        if (x == sx && checks.empty(blacks, x, y) && checks.empty(whites, x, y)) {  
+            
             if (sy == 1 && y == 3) {
                 return true;
             }
+            
             if (x < 8 && sy + 1 == y) {
                 return true;
             }
         }
+        
         if (!checks.empty(whites, x, y) && sy + 1 == y && (sx - 1 == x || sx + 1 == x)) {
             return true;
-        }        
+        }  
+        
         return false;
     }
     
@@ -95,16 +110,20 @@ public class Moves {
      */ 
     public boolean moveWhitePawn(int[]whites, int[]blacks, int sx, int sy, int x, int y) {
         if (x == sx && checks.empty(whites, x, y) && checks.empty(blacks, x, y)) {
+            
             if (sy == 6 && y == 4) {
                 return true;
             }
+            
             if (x >= 0 && sy - 1 == y) {
                 return true;
             }
         }
+        
         if (!checks.empty(blacks, x, y) && sy - 1 == y && (sx - 1 == x || sx + 1 == x)) {
             return true;
-        }        
+        }  
+        
         return false;
     }
     
@@ -119,33 +138,42 @@ public class Moves {
      * @return palauttaa true jos siirton on mahdollinen.
      */     
     public boolean moveKnight(int[]locations, int sx, int sy, int x, int y) {
-        if (checks.onBoard(x, y) && y < 8 && checks.empty(locations, x, y)) {
+        if (checks.onBoard(x, y)  && checks.empty(locations, x, y)) {
+            
             if (sx - 1 == x && sy - 2 == y) {
                 return true;
             }
+            
             if (sx - 2 == x && sy - 1 == y) {
                 return true;
-            }           
+            } 
+            
             if (sx + 1 == x && sy - 2 == y) {
                 return true;
             }
+            
             if (sx + 2 == x && sy - 1 == y) {
                 return true;
             }
+            
             if (sx - 1 == x && sy + 2 == y) {
                 return true;
             }
+            
             if (sx - 2 == x && sy + 1 == y) {
                 return true;
             }
+            
             if (sx + 1 == x && sy + 2 == y) {
                 return true;
             }
+            
             if (sx + 2 == x && sy + 1 == y) {
                 return true;
             }
             
         }
+        
         return false;
     }
     
@@ -161,14 +189,17 @@ public class Moves {
      * @return palauttaa true jos siirton on mahdollinen.
      */ 
     public boolean moveRook(int[][]board, int[]locations, int sx, int sy, int x, int y) {
-        if (checks.onBoard(x, y) && y < 8 && checks.empty(locations, x, y)) {
+        if (checks.onBoard(x, y) && checks.empty(locations, x, y)) {
+            
             if (sx == x && checks.rookCheckVertical(board, sx, sy, x, y)) {
                 return true;
             }
+            
             if (sy == y && checks.rookCheckHorizontal(board, sx, sy, x, y)) {
                 return true;
             }
         }
+        
         return false;
     }    
     
@@ -184,7 +215,7 @@ public class Moves {
      * @return palauttaa true jos siirto on mahdollinen.
      */ 
     public boolean moveBishop(int[][]board, int[]locations, int sx, int sy, int x, int y) {
-        if (checks.onBoard(x, y) && y < 8 && checks.empty(locations, x, y)) {
+        if (checks.onBoard(x, y)  && checks.empty(locations, x, y)) {
             
             if (sx > x && sy > y && checks.bishopCheckNW(board, sx, sy, x, y)) {
                 return true;
@@ -200,12 +231,14 @@ public class Moves {
             if (sx < x && sy < y && checks.bishopCheckSE(board, sx, sy, x, y)) {
                 return true;      
             }             
-        }        
+        }  
+        
         return false;
     }    
      
     /**
-     * Tarkistaa voidaanko kuningatarta siirtää alkuruudusta kohderuutuun.
+     * Tarkistaa voidaanko kuningatarta siirtää alkuruudusta kohderuutuun, 
+     * käytettään hyväksi moveRook ja moveBishop metodeja.
      * 
      * @param board shakkilauta
      * @param locations omien nappuloiden sijannit.
@@ -219,6 +252,7 @@ public class Moves {
         if (moveRook(board, locations, sx, sy, x, y) || moveBishop(board, locations, sx, sy, x, y)) {
             return true;
         }
+        
         return false;
     }    
         

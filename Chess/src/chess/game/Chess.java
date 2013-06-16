@@ -7,22 +7,37 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /** 
- * kontrolloiva luokka, tämän luokan avulla GUI pyörittää itse pelilogiikkaa.
+ * Logiikaa kontrolloiva luokka, tämän luokan avulla GUI pyörittää kaikkea pelilogiikkaa.
  */ 
-public class Chess {
-    private Chessboard board;
-    private int turns;  
-    private CheckMate cm;
-    private int[][] cb;
-    private int info;
-    private Menu player;
+public class Chess {    
+    /**
+     * Olio Chessboard shakkilaudan toimintoja varten.
+     */    
+    private Chessboard board;    
+    /**
+     * Integer turns, määrittää vuorojen määrän.
+     */     
+    private int turns;     
+    /**
+     * Olio CheckMate shakkimatti tilanteiden tarkistusta varten.
+     */     
+    private CheckMate cm;    
+   /**
+    * Kaksiulotteinen integer array cb joka kuvaa shakkilaudan tilannetta.
+    */   
+    private int[][] cb;  
+    /**
+     * Integer info, gui näkee info muuttujan avulla shakkimatti tilanteet.
+     */    
+    private int info;    
+    /**
+     * Olio Menu menun kontrolointia varten.
+     */    
+    private Menu menu;
 
     
     /**
-     * Luokan konstruktori, luodaan oliot ChessBoard ja CheckMate joita luokka
-     * käyttää, lisäksi luodaan shakkilautakopio array jota GUI voi käyttää, 
-     * turns muuttuja joka pitää kirjaa vuoroista ja info muuttuja jota käytettään
-     * ilmoittamaan pelitilannetta GUIssa (shakki ja voitto).
+     * Luokan konstruktori, luodaan kaikki luokassa tarvittavat oliot ja attribuutit.
      */    
     public Chess() { 
         this.board = new Chessboard();
@@ -30,15 +45,14 @@ public class Chess {
         this.cb =  new int[8][8];
         this.turns = 1;         
         this.info = 0;
-        this.player = new Menu();
+        this.menu = new Menu();
 
     }
     
     /** 
-     * käynnistää pelin, luo uuden shakkilaudan ja kirjaa ylös mustien ja
-     * valkoisten nappuloiden sijannit omiin arraynsa.
+     * Aloittaa uuden pelin.
      */    
-    public void run () {
+    public void newGame () {
         this.info = 0;
         this.turns = 1;
         this.board.newBoard();
@@ -46,14 +60,14 @@ public class Chess {
     }
  
      /** 
-     * kopio pelilaudan GUIta varten.
+     * Kopio pelilaudan GUIta varten.
      */     
     public void copyBoard() {
         this.cb = board.getBoard();
     }
     
      /** 
-     * palauttaa pelilaudan, käytettään GUIsta.
+     * Palauttaa pelilaudan, käytettään GUIsta.
      */     
     public int[][] getBoard() {
         return cb;
@@ -61,7 +75,8 @@ public class Chess {
     
     
     /** 
-     * Mustan vuoro.
+     * Mustan vuoro. Jos siirto ei ole mahdollinen vuorojen laskuri ei kasva. 
+     * Tarkistettaan joka siirron jälkeen syntyykö shakki tai matti tilanne.
      * 
      * @param sx siirettävän nappulan x - alkukoordinaatti.
      * @param sy siirettävän nappulan y - alkukoordinaatti.
@@ -71,24 +86,29 @@ public class Chess {
     public void blackTurn(int sx, int sy, int ex, int ey) { 
         int piece = board.getPiece(sx, sy);        
         board.blackTurn(sx, sy, ex, ey);
+        
         if (board.getMoveB()) { 
             setInfo(0);
             turns++;
-        if (canAttackKing(board.getBoard(), piece, ex, ey)) {
-            setInfo(1);
-            cm.addSquares();
-            if (cm.canKingMove() && !cm.canTakeDownAttacker(ex, ey)) {
-                setInfo(3);
-            }
-        }            
-        }        
+            
+            if (canAttackKing(board.getBoard(), piece, ex, ey)) {
+                setInfo(1);
+                cm.addSquares();
+                
+                if (!cm.canKingMove() && !cm.canTakeDownAttacker(ex, ey)) {
+                    setInfo(3);
+                }
+            }            
+        }  
+        
         if (board.getWhite(12) == 99) {
             setInfo(3);
         }         
     }
     
     /** 
-     * Valkoisen vuoro.
+     * Valkoisen vuoro.Jos siirto ei ole mahdollinen vuorojen laskuri ei kasva. 
+     * Tarkistettaan joka siirron jälkeen syntyykö shakki tai matti tilanne.
      * 
      * @param sx siirettävän nappulan x - alkukoordinaatti.
      * @param sy siirettävän nappulan y - alkukoordinaatti.
@@ -98,17 +118,21 @@ public class Chess {
     public void whiteTurn(int sx, int sy, int ex, int ey) {  
         int piece = board.getBoard()[sy][sx];
         board.whiteTurn(sx, sy, ex, ey);  
+        
         if (board.getMoveW()) {
             setInfo(0);            
             turns++;
-        if (canAttackKing(board.getBoard(), piece, ex, ey)) {
-            setInfo(2);
-            cm.addSquares();
-            if (cm.canKingMove() && !cm.canTakeDownAttacker(ex, ey)) {
-                setInfo(4);
+            
+            if (canAttackKing(board.getBoard(), piece, ex, ey)) {
+                setInfo(2);
+                cm.addSquares();
+                
+                if (!cm.canKingMove() && !cm.canTakeDownAttacker(ex, ey)) {
+                    setInfo(4);
+                }            
             }            
-        }            
-        }         
+        }  
+        
         if (board.getBlack(4) == 99) {
             setInfo(4);
         }          
@@ -116,7 +140,7 @@ public class Chess {
     /**
      * Tarkistaa voiko kyseinen puoli shakittaa vastapuolen kuningasta.
      * 
-     * @param board tämän hetken shakki lauta.
+     * @param board tämän hetken shakkilauta.
      * @param piece siirtyneen nappulan numero.
      * @param x hyökkävän nappulan x - koordinaatti.
      * @param y hyökkävän nappulan y - koordinaatti.
@@ -126,37 +150,50 @@ public class Chess {
         if (cm.canAttackKing(board, piece, x, y)) {
             return true;
         }
+        
         return false;
     }
+
     
     public int getTurn() {
         return this.turns;
     }
 
-     /** 
+     /**       * 
      * Asetetaan infolle arvo, infoa luetaan GUIsta, jos aika riittää katson voinko
      * todeuttaa tämän enumilla.
+     * 
+     * @param info
      */     
     public void setInfo(int info) {
         this.info = info;
     } 
-     /** 
-     * Palauttaa GUIlle infon arvon.
-     */     
+   
     public int getInfo() {
         return this.info;
     }
     
+     /**       * 
+     * Ilmoittaa menu oliolle että pelitilanne(shakkilauta, vuorot, info) 
+     * pitäisi tallentaa.
+     *
+     */
     public void saveGame() throws IOException {
-        player.save(board.getBoard(), turns, info);
+        menu.save(board.getBoard(), turns, info);
     }
     
+     /**       * 
+     * Ilmoittaa menu oliolle että pelitilanne(shakkilauta, vuorot, info) 
+     * pitäisi lataa. Kutsutaan myös addPieces metodia että saataisin oikeat
+     * nappuloiden sijannit arrayihin.
+     *
+     */    
     public void loadGame() throws FileNotFoundException {
-        int [][] cb = player.load();
+        int [][] cb = menu.loadBoard();
         board.setBoard(cb);
-        setInfo(player.loadInfo());
-        this.turns = player.loadTurns();
+        setInfo(menu.loadInfo());
+        this.turns = menu.loadTurns();
         this.board.addPieces();        
     }
-       
+    
 }

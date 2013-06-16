@@ -17,32 +17,96 @@ import javax.swing.WindowConstants;
 
 /**
  * Graafisen käyttöliitymän pääluokka.
- * Grafiikat bugailee, kun ikkunaa refresh tulee  näkyviin napit taas,
- * monet asiat eivät toimi vielä, siirrot kuitenkin toimivat eli peliä voi pelata graafisesti.
  */
 
 public class Gui implements Runnable {
+    /**
+     * JFrame frame JFrame luokka.
+     */     
     private JFrame frame;
+    /**
+     * Drawning paint, piirtoalusta olio.
+     */     
     private DrawingPanel paint;
+    /**
+     * Jbutton start, aloitus nappula pelissä.
+     */     
     private JButton start;
+    /**
+     * Jbutton exit, lopetus nappula pelissä.
+     */     
     private JButton exit;
+    /**
+     * Jbutton giveUp, luovutus nappula pelissä.
+     */    
     private JButton giveUp;
+    /**
+     * ModifyComponent mC, ModifyComponent olio jolla muokataan pelin komponenttejä.
+     */     
     private ModifyComponent mC;
+    /**
+     * Chess chess, Chess olio joka liittää käyttöjärjestelmän pelilogiikkaan.
+     */     
     private Chess chess;
+    /**
+     * JTextField startxField, tekstikenttä johon syötettään siirtojen alku x - koordinaatti.
+     */    
     private JTextField startxField;
+    /**
+     * JTextField startyField, tekstikenttä johon syötettään siirtojen alku y - koordinaatti.
+     */     
     private JTextField startyField;
+    /**
+     * JTextField endxField, tekstikenttä johon syötettään siirtojen loppu x - koordinaatti.
+     */     
     private JTextField endxField;
+    /**
+     * JTextField endyField, tekstikenttä johon syötettään siirtojen loppu y - koordinaatti.
+     */        
     private JTextField endyField;
+    /**
+     * JLabel startx, JLabel jotta pelaaja tietäisi mitä startxField tekee.
+     */     
     private JLabel startx;
+    /**
+     * JLabel starty, JLabel jotta pelaaja tietäisi mitä startyField tekee.
+     */        
     private JLabel starty;
+    /**
+     * JLabel endx, JLabel jotta pelaaja tietäisi mitä endxField tekee.
+     */    
     private JLabel endx;
+    /**
+     * JLabel endy, JLabel jotta pelaaja tietäisi mitä endyField tekee.
+     */     
     private JLabel endy;
+    /**
+     * JLabel turns, JLabel joka ilmoittaa kumman vuoro pelissä on menossa.
+     */     
     private JLabel turns;
+    /**
+     * JButton move, JButton jolla suoritettaan siirrot, pelin tärkein nappi.
+     */    
     private JButton moves;
+    /**
+     * JLabel info, JLabel joka ilmoittaa shakkimatti tilanteet ja pelin voiton.
+     */    
     private JLabel info;
+    /**
+     * Integer sx, siirtojen lähtö x - koordinaatti.
+     */     
     private int sx;
+    /**
+     * Integer sy, siirtojen lähtö y - koordinaatti.
+     */      
     private int sy;
+    /**
+     * Integer ex, siirtojen kohde x - koordinaatti.
+     */    
     private int ex;
+    /**
+     * Integer ey, siirtojen kohde y - koordinaatti.
+     */     
     private int ey;
 
 
@@ -54,7 +118,7 @@ public class Gui implements Runnable {
     }
 
     /**
-     * Tämä metodi käynnistää jäyttöliittymän.
+     * Tämä metodi käynnistää käyttöliittymän.
      */
     @Override
     public void run() {
@@ -106,16 +170,16 @@ public class Gui implements Runnable {
         mC.modifyJTextField(startxField, 100, 350, 50, 40, 12, container);
 
         starty = new JLabel("start Y: ");
-        mC.modifyJLabel(starty, 25, 400, 70, 50, 12, container);
+        mC.modifyJLabel(starty, 175, 350, 70, 50, 12, container);
 
         startyField = new JTextField("");
-        mC.modifyJTextField(startyField, 100, 400, 50, 40, 12, container);
+        mC.modifyJTextField(startyField, 250, 350, 50, 40, 12, container);
 
         endx = new JLabel("end X: ");
-        mC.modifyJLabel(endx, 175, 350, 70, 50, 12, container);
+        mC.modifyJLabel(endx, 25, 400, 70, 50, 12, container);
 
         endxField = new JTextField("");
-        mC.modifyJTextField(endxField, 250, 350, 50, 40, 12, container);
+        mC.modifyJTextField(endxField, 100, 400, 50, 40, 12, container);
 
         endy = new JLabel("end Y: ");
         mC.modifyJLabel(endy, 175, 400, 70, 50, 12, container);
@@ -155,7 +219,7 @@ public class Gui implements Runnable {
      * Tämä metodi aloittaa uuden pelin.
      */
     public void startGame() {
-        chess.run();
+        chess.newGame();
         this.moves.setEnabled(true); 
         this.info.setText("New game");
         this.turns.setText("White turn");
@@ -243,6 +307,7 @@ public class Gui implements Runnable {
         } else {
             chess.setInfo(3);
         }
+        
         this.frame.repaint();
         update();
         this.moves.setEnabled(false);      
@@ -259,30 +324,35 @@ public class Gui implements Runnable {
         startxField.setText("");
         startyField.setText("");
         endxField.setText("");
-        endyField.setText("");        
+        endyField.setText("");  
+        
         if (chess.getTurn() % 2 == 0) {
             turns.setText("Black turn");
         } else {
             turns.setText("White turn");
         }
+        
         if (chess.getInfo() == 0) {
             info.setText("");
         }
+        
         if (chess.getInfo() == 1) {
             info.setText("White King under attack!");
         }
+        
         if (chess.getInfo() == 2) {
             info.setText("Black King under attack!");
         }
+        
         if (chess.getInfo() == 3) {
             info.setText("Black wins!");
             moves.setEnabled(false);
         }
+        
         if (chess.getInfo() == 4) {
             info.setText("White wins!");
             moves.setEnabled(false);            
-        }
-        
-    }    
-
+        }        
+    } 
+    
 }

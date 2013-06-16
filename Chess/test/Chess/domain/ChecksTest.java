@@ -91,9 +91,7 @@ public class ChecksTest {
     // jotain kusee seuraavissa testeissä, ei pitäisi mennä läpi mutta silti menee...
     @Test
     public void rookCheckVerticalTrue() {
-        int[][] board2 = new int[8][8];
-        board2 = cb.getBoard();
-        assertEquals(checks.rookCheckHorizontal(board2, 0, 5, 0, 7), true);       
+        assertEquals(checks.rookCheckHorizontal(this.board, 0, 5, 0, 7), true);       
     }
     
     @Test
@@ -107,20 +105,18 @@ public class ChecksTest {
     }
     
     @Test
-    public void bishopCheckNETrue() {
+    public void bishopCheckNEFalse() {
         assertEquals(checks.bishopCheckNE(this.board, 4, 5, 4, 7), false);       
     } 
     
     @Test
-    public void bishopCheckSWTrue() {
+    public void bishopCheckSWFalse() {
         assertEquals(checks.bishopCheckSW(this.board, 4, 5, 4, 7), false);       
     }   
 
     @Test
-    public void bishopCheckSETrue() {
-        int[][] board2 = new int[8][8];
-        board2 = this.board;       
-        assertEquals(checks.bishopCheckSE(board2, 4, 5, 4, 9), false);       
+    public void bishopCheckSEFalse() {    
+        assertEquals(checks.bishopCheckSE(this.board, 4, 5, 4, 9), false);       
     }     
 
 }

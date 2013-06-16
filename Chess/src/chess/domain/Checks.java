@@ -2,13 +2,24 @@
 package chess.domain;
 
 /**
- * Tässä luokassa on metodeja jotka tarkistavat onko jotkut siirtyihin liittyvät
- * asiat mahdollisia.
+ * Tässä luokassa on metodeja jotka tarkistavat lähinnä sitä onko tilaa
+ * (ei muita nappuloita tiellä) siirtää nappulaa.
+ * kohderuutuun.
  */
 
-public class Checks {
-    private final int over = 8;
-    private final int under = 0; 
+public class Checks {    
+    /**
+     * Final integer over on 8 joka on shakkilaudan ylärajana.
+     */     
+    private final int over = 8;    
+    /**
+     * Final integer over on 0 joka on shakkilaudan alarajana.
+     */     
+    private final int under = 0;     
+    /**
+     * Final integer s on 10 jota käytettään x - koordinaatin kertomiseen jotta
+     * koordinaatit voitaisiin ilmoittaa yhdessä arrayssa.
+     */      
     private final int s = 10;
        
      /**
@@ -25,11 +36,12 @@ public class Checks {
                 return false;
             }
         }
+        
         return true;
     }   
     
     /**
-     * Tarkistaa onko koordinaatti shakkilaudalla, siistii hieman koodia muista luokista.
+     * Tarkistaa onko koordinaatti shakkilaudalla.
      * 
      * @param x x - koordinaatti.
      * @param y y - koordinaatti.
@@ -39,6 +51,7 @@ public class Checks {
         if (x >= under && x < over && y >= under && y < over) {
             return true;
         }
+        
         return false;
     } 
 
@@ -47,11 +60,11 @@ public class Checks {
      * kun ruudut ovat samalla pystysuoralla.
      * 
      * @param board shakkilauta
-     * @param sx siirrettävän nappulan alku x-koordinaatti.
-     * @param sy siirrettävän nappulan alku y-koordinaatti.
-     * @param x siirettävän nappulan loppu x-koordinaatti.
-     * @param y siirettävän nappulan loppu y-koordinaatti.
-     * @return palauttaa true jos siirton on mahdollinen.
+     * @param sx siirrettävän tornin alku x-koordinaatti.
+     * @param sy siirrettävän tornin alku y-koordinaatti.
+     * @param x siirettävän tornin loppu x-koordinaatti.
+     * @param y siirettävän tornin loppu y-koordinaatti.
+     * @return palauttaa true jos tornin siirto on mahdollinen.
      */     
     public boolean rookCheckVertical(int[][]board, int sx, int sy, int x, int y) {
         if (sy < y) {
@@ -59,7 +72,8 @@ public class Checks {
                 if (board[i][sx] != 0) {
                     return false;
                 }
-            }  
+            } 
+            
             return true;
         } else {
             for (int i = sy - 1; i > y; i--) {
@@ -67,6 +81,7 @@ public class Checks {
                     return false;
                 }
             }
+            
             return true;
         }        
     }
@@ -76,11 +91,11 @@ public class Checks {
      * kun ruudut ovat samalla vaakasuoralla.
      * 
      * @param board shakkilauta
-     * @param sx siirrettävän nappulan alku x-koordinaatti.
-     * @param sy siirrettävän nappulan alku y-koordinaatti.
-     * @param x siirettävän nappulan loppu x-koordinaatti.
-     * @param y siirettävän nappulan loppu y-koordinaatti.
-     * @return palauttaa true jos siirton on mahdollinen.
+     * @param sx siirrettävän tornin alku x-koordinaatti.
+     * @param sy siirrettävän tornin alku y-koordinaatti.
+     * @param x siirettävän tornin loppu x-koordinaatti.
+     * @param y siirettävän tornin loppu y-koordinaatti.
+     * @return palauttaa true jos tornin siirto on mahdollinen.
      */    
     public boolean rookCheckHorizontal(int[][]board, int sx, int sy, int x, int y) {
         if (sx < x) {
@@ -89,6 +104,7 @@ public class Checks {
                     return false;
                 }
             }  
+            
             return true;
         } else {
             for (int i = sx - 1; i > x; i--) {
@@ -96,6 +112,7 @@ public class Checks {
                     return false;
                 }
             }
+            
             return true;
         }        
     }
@@ -105,23 +122,26 @@ public class Checks {
      * ruutu on alkuruutua vasemalla ja ylempänä.
      * 
      * @param board shakkilauta
-     * @param sx siirrettävän nappulan alku x-koordinaatti.
-     * @param sy siirrettävän nappulan alku y-koordinaatti.
-     * @param x siirettävän nappulan loppu x-koordinaatti.
-     * @param y siirettävän nappulan loppu y-koordinaatti.
-     * @return palauttaa true jos siirton on mahdollinen.
+     * @param sx siirrettävän lähetin alku x-koordinaatti.
+     * @param sy siirrettävän lähetin alku y-koordinaatti.
+     * @param x siirettävän lähetin loppu x-koordinaatti.
+     * @param y siirettävän lähetin loppu y-koordinaatti.
+     * @return palauttaa true jos lähetin siirto on mahdollinen.
      */    
     public boolean bishopCheckNW(int[][]board, int sx, int sy, int x, int y) {
+        int k = 0;
+        
         if ((sx - x) != (sy - y)) {
             return false;
-        }        
-        int k = 0;
+        }   
+        
         for (int i = sx - 1; i > x; i--) {
             k++;
             if (board[sy - k][i] != 0) {
                 return false;
             }
         }
+        
         return true;
     }
     
@@ -130,23 +150,26 @@ public class Checks {
      * ruutu on alkuruutua vasemalla ja alempana.
      * 
      * @param board shakkilauta
-     * @param sx siirrettävän nappulan alku x-koordinaatti.
-     * @param sy siirrettävän nappulan alku y-koordinaatti.
-     * @param x siirettävän nappulan loppu x-koordinaatti.
-     * @param y siirettävän nappulan loppu y-koordinaatti.
-     * @return palauttaa true jos siirton on mahdollinen.
+     * @param sx siirrettävän lähetin alku x-koordinaatti.
+     * @param sy siirrettävän lähetin alku y-koordinaatti.
+     * @param x siirettävän lähetin loppu x-koordinaatti.
+     * @param y siirettävän lähetin loppu y-koordinaatti.
+     * @return palauttaa true jos lähetin siirto on mahdollinen.
      */     
     public boolean bishopCheckSW(int[][]board, int sx, int sy, int x, int y) {
+        int k = 0;
+        
         if ((sx - x) != (y - sy)) {
             return false;
-        }        
-        int k = 0;
+        }  
+        
         for (int i = sx - 1; i > x; i--) {
             k++;
             if (board[sy + k][i] != 0) {
                 return false;
             }
         }
+        
         return true; 
     }
     
@@ -155,23 +178,26 @@ public class Checks {
      * ruutu on alkuruutua oikealla ja ylempänä.
      * 
      * @param board shakkilauta
-     * @param sx siirrettävän nappulan alku x-koordinaatti.
-     * @param sy siirrettävän nappulan alku y-koordinaatti.
-     * @param x siirettävän nappulan loppu x-koordinaatti.
-     * @param y siirettävän nappulan loppu y-koordinaatti.
-     * @return palauttaa true jos siirton on mahdollinen.
+     * @param sx siirrettävän lähetin alku x-koordinaatti.
+     * @param sy siirrettävän lähetin alku y-koordinaatti.
+     * @param x siirettävän lähetin loppu x-koordinaatti.
+     * @param y siirettävän lähetin loppu y-koordinaatti.
+     * @return palauttaa true jos lähetin siirto on mahdollinen.
      */     
     public boolean bishopCheckNE(int[][]board, int sx, int sy, int x, int y) {
+        int k = 0;
+        
         if ((x - sx) != (sy - y)) {
             return false;
         }
-        int k = 0;                
+               
         for (int i = sx + 1; i < x; i++) {
             k++;            
             if (board[sy - k][i] != 0) {
                 return false;
             }
         }
+        
         return true;  
     }
 
@@ -180,23 +206,26 @@ public class Checks {
      * ruutu on alkuruutua oikealla ja alempana.
      * 
      * @param board shakkilauta
-     * @param sx siirrettävän nappulan alku x-koordinaatti.
-     * @param sy siirrettävän nappulan alku y-koordinaatti.
-     * @param x siirettävän nappulan loppu x-koordinaatti.
-     * @param y siirettävän nappulan loppu y-koordinaatti.
-     * @return palauttaa true jos siirton on mahdollinen.
+     * @param sx siirrettävän lähetin alku x-koordinaatti.
+     * @param sy siirrettävän lähetin alku y-koordinaatti.
+     * @param x siirettävän lähetin loppu x-koordinaatti.
+     * @param y siirettävän lähetin loppu y-koordinaatti.
+     * @return palauttaa true jos lähetin siirto on mahdollinen.
      */     
     public boolean bishopCheckSE(int[][]board, int sx, int sy, int x, int y) {
+        int k = 0;
+        
         if ((x - sx) != (y - sy)) {
             return false;
         }        
-        int k = 0;
+
         for (int i = sx + 1; i < x; i++) {
             k++;
             if (board[sy + k][i] != 0) {
                 return false;
             }
         }
+        
         return true; 
     }    
 }

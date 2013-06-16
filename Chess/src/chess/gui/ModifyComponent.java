@@ -2,7 +2,6 @@
 package chess.gui;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -68,11 +67,23 @@ public class ModifyComponent {
         container.add(field);
     }
     
+     /**
+     *  Tämän metodin avulla lisätään halutut ominaisuudet menuun.
+     *  @param menu menu, jota muokataan.
+     *  @param fontSize menun fontin koko.
+     *  @param menubar menubar jossa menu sijaitsee.
+     */      
     public void modifyJMenu(JMenu menu, int fontSize, JMenuBar menubar) {
         menu.setFont(new Font("Serif", Font.BOLD, fontSize));
         menubar.add(menu);
     }
     
+     /**
+     *  Tämän metodin avulla lisätään halutut ominaisuudet menuitemiin.
+     *  @param menuitem menuitem, jota muokataan.
+     *  @param fontSize menuitemin fontin koko.
+     *  @param menu menu jossa menuitem sijaitsee.
+     */   
     public void modifyJMenuItem(JMenuItem menuitem, int fontSize, JMenu menu) {
         menuitem.setFont(new Font("Serif", Font.BOLD, fontSize));
         menu.add(menuitem);

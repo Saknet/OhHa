@@ -86,4 +86,21 @@ ei suju hommat
 12.1
 1h koodamiseen
 1h javadocs + projektin tarkistamista/kuntoon laittamista demoa varten
+2h istuttu demossa
 
+13.1
+1h koodattu
+
+14.1
+2h koodattu load ja save
+1h testeihin ja lopullisen palautuksen miettmiseen
+
+15.1
+1h koodattu  
+3h javadocsin tekoon puuttuville luokille ja  viimeistelyä jossa sitä on
+
+16.1
+2h Aihemäärittely, käyttöohjeet, ja ohjelman rakenteen kuvaus
+30min koodinkorjausta
+30min luokkakaavioon
+1h sekvenssikaaviot
