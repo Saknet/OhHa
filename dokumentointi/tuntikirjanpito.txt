@@ -76,31 +76,35 @@ ei suju hommat
 2h koodikatselmointiin
 1h koodamiseen
 
-10.1
+10.6
 2h koodamista
 1h pajassa
 
-11.1
+11.6
 3h koodamiseen
 
-12.1
+12.6
 1h koodamiseen
 1h javadocs + projektin tarkistamista/kuntoon laittamista demoa varten
 2h istuttu demossa
 
-13.1
+13.6
 1h koodattu
 
-14.1
+14.6
 2h koodattu load ja save
 1h testeihin ja lopullisen palautuksen miettmiseen
 
-15.1
+15.6
 1h koodattu  
 3h javadocsin tekoon puuttuville luokille ja  viimeistelyä jossa sitä on
 
-16.1
+16.6
 2h Aihemäärittely, käyttöohjeet, ja ohjelman rakenteen kuvaus
 30min koodinkorjausta
 30min luokkakaavioon
 1h sekvenssikaaviot
+3h lisää testejä
+2h testausdokumentaation tekoa ja hieman manuaalista testausta
+1h testejä
+PALAUTUS!!! gief arvosana != 0

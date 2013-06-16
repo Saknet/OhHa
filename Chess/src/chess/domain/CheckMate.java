@@ -392,8 +392,7 @@ public class CheckMate {
             return true;
             }
         }        
-        
-        
+               
         return false;
     }
     

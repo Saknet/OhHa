@@ -2,7 +2,6 @@
 package chess.game;
 
 import chess.domain.CheckMate;
-import chess.domain.Menu;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -43,7 +42,7 @@ public class Chess {
         this.board = new Chessboard();
         this.cm = new CheckMate();
         this.cb =  new int[8][8];
-        this.turns = 1;         
+        this.turns = 0;         
         this.info = 0;
         this.menu = new Menu();
 
@@ -91,7 +90,7 @@ public class Chess {
             setInfo(0);
             turns++;
             
-            if (canAttackKing(board.getBoard(), piece, ex, ey)) {
+            if (cm.canAttackKing(board.getBoard(), piece, ex, ey)) {
                 setInfo(1);
                 cm.addSquares();
                 
@@ -116,14 +115,14 @@ public class Chess {
      * @param ey siirettävän nappulan y - loppukoordinaatti.
      */ 
     public void whiteTurn(int sx, int sy, int ex, int ey) {  
-        int piece = board.getBoard()[sy][sx];
+        int piece = board.getPiece(sx, sy);
         board.whiteTurn(sx, sy, ex, ey);  
         
         if (board.getMoveW()) {
             setInfo(0);            
             turns++;
             
-            if (canAttackKing(board.getBoard(), piece, ex, ey)) {
+            if (cm.canAttackKing(board.getBoard(), piece, ex, ey)) {
                 setInfo(2);
                 cm.addSquares();
                 
@@ -137,23 +136,6 @@ public class Chess {
             setInfo(4);
         }          
     } 
-    /**
-     * Tarkistaa voiko kyseinen puoli shakittaa vastapuolen kuningasta.
-     * 
-     * @param board tämän hetken shakkilauta.
-     * @param piece siirtyneen nappulan numero.
-     * @param x hyökkävän nappulan x - koordinaatti.
-     * @param y hyökkävän nappulan y - koordinaatti.
-     * @return palauttaa arvoksi true jos kuningas on hyökkäyksen kohteena.
-     */     
-    public boolean canAttackKing(int[][] board, int piece, int x, int y) {
-        if (cm.canAttackKing(board, piece, x, y)) {
-            return true;
-        }
-        
-        return false;
-    }
-
     
     public int getTurn() {
         return this.turns;

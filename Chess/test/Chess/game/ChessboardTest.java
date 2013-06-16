@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 
 public class ChessboardTest {
-    Chessboard board;    
+    private Chessboard board;    
    
     
     public ChessboardTest() {
@@ -39,12 +39,22 @@ public class ChessboardTest {
     }
     
     @Test
-    public void creationTest() {
+    public void newBoardTest() {
         assertEquals(board.getPiece(0, 0), 4);
         assertEquals(board.getPiece(7, 6), 1);
         assertEquals(board.getPiece(5, 5), 0); 
         assertEquals(board.getPiece(6, 7), 5);
         assertEquals(board.getPiece(4, 0), 12);                
+    }
+    
+    @Test
+    public void addPiecesWhite() {
+        assertEquals(board.getWhite(12), 47);
+    }
+    
+    @Test
+    public void addPiecesBlack() {
+        assertEquals(board.getBlack(8), 1);
     }
 
     
@@ -143,6 +153,45 @@ public class ChessboardTest {
        assertEquals(board.getPiece(0, 5), 3);       
        assertEquals(board.getWhite(8), 5);        
    }
+   
+   @Test
+   public void setBoard() {
+        int[][]cb  = new int[][] {{0,0,8,10,12,0,0,4},
+                                  {2,0,2,2,2,2,2,2},
+                                  {0,0,6,0,0,0,6,0},
+                                  {0,2,0,4,3,0,0,0},
+                                  {1,0,0,1,0,5,0,8},
+                                  {0,1,0,0,0,9,0,0},
+                                  {0,0,1,0,1,1,1,1},
+                                  {0,5,7,0,11,7,0,3}};  
+        board.setBoard(cb);
+        assertEquals(board.getPiece(5, 4), 5);           
+
+   }
+   
+   @Test
+   public void moveBTrue() {
+       board.moveBlack(0, 1, 0, 3, 2);
+       assertEquals(board.getMoveB(), true);  
+   }
+   
+   @Test
+   public void moveBFalse() {
+       board.moveBlack(4, 5, 0, 3, 11);
+       assertEquals(board.getMoveB(), false);  
+   } 
+   
+   @Test
+   public void moveWTrue() {
+       board.moveWhite(6, 7, 5, 5, 5);
+       assertEquals(board.getMoveW(), true);  
+   }
+   
+   @Test
+   public void moveWFalse() {
+       board.moveWhite(3, 2, 7, 5, 4);
+       assertEquals(board.getMoveW(), false);  
+   }    
    
    
     

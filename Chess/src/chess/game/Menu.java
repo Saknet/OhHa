@@ -1,5 +1,5 @@
 
-package chess.domain;
+package chess.game;
 
 import java.io.*;
 import java.util.Scanner;

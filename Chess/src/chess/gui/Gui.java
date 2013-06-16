@@ -320,12 +320,7 @@ public class Gui implements Runnable {
     /**
      * Tämä metodi päivittää nappuloiden tilanteen kun niitä painetaan.
      */    
-    public void update() {        
-        startxField.setText("");
-        startyField.setText("");
-        endxField.setText("");
-        endyField.setText("");  
-        
+    public void update() {                  
         if (chess.getTurn() % 2 == 0) {
             turns.setText("Black turn");
         } else {

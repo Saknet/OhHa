@@ -107,10 +107,11 @@ public class MovesListener implements ActionListener {
      * Tämä metodi muuttaa starty teksikentän sisällön y alkukoordinaatiksi.
      */     
     private void setStartY() {
-        String text = starty.getText();        
-        int sy = Integer.parseInt(text); 
+        String text = starty.getText(); 
+        int sy = 99;
+        sy = Integer.parseInt(text); 
         
-        if (sy < 0 || sy > 7) {
+        if (sy < 1 || sy > 8) {
             gui.turns();
         } 
         
@@ -156,6 +157,7 @@ public class MovesListener implements ActionListener {
             ex = 7;
         } 
                
+               
         gui.setEX(ex);        
     }
     
@@ -163,8 +165,9 @@ public class MovesListener implements ActionListener {
      * Tämä metodi muuttaa endy teksikentän sisällön y loppukoordinaatiksi.
      */   
     private void setEndY() {
-        String text = endy.getText();          
-        int ey = Integer.parseInt(text);        
+        String text = endy.getText(); 
+        int ey = 99;
+        ey = Integer.parseInt(text);   
         gui.setEY(8 - ey);
     }
     
