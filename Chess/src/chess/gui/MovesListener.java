@@ -109,7 +109,10 @@ public class MovesListener implements ActionListener {
     private void setStartY() {
         String text = starty.getText(); 
         int sy = 99;
-        sy = Integer.parseInt(text); 
+        
+        if (isValidNumber(text)) {
+            sy = Integer.parseInt(text); 
+        }
         
         if (sy < 1 || sy > 8) {
             gui.turns();
@@ -167,8 +170,26 @@ public class MovesListener implements ActionListener {
     private void setEndY() {
         String text = endy.getText(); 
         int ey = 99;
-        ey = Integer.parseInt(text);   
+        
+        if (isValidNumber(text)) {
+            ey = Integer.parseInt(text); 
+        }
         gui.setEY(8 - ey);
+    }
+    
+     /**
+     * Tämä metodi tarkistaa onko y - koordinaatti numero.
+     * 
+     * @param text teksikentän sisältö
+     * @return palauttaa true jos koordinaatti on sopiva numero
+     */    
+    private boolean isValidNumber(String text) {
+        if (text.endsWith("1") || text.endsWith("2") || text.endsWith("3") || text.endsWith("4") ||
+                text.endsWith("5") || text.endsWith("6") || text.endsWith("7") || text.endsWith("8")) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
 }

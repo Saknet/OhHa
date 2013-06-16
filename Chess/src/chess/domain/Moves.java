@@ -85,7 +85,7 @@ public class Moves {
                 return true;
             }
             
-            if (x < 8 && sy + 1 == y) {
+            if (y < 8 && sy + 1 == y) {
                 return true;
             }
         }
@@ -115,7 +115,7 @@ public class Moves {
                 return true;
             }
             
-            if (x >= 0 && sy - 1 == y) {
+            if (y >= 0 && sy - 1 == y) {
                 return true;
             }
         }

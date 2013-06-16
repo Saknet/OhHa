@@ -196,7 +196,7 @@ public class Gui implements Runnable {
         mC.modifyJLabel(turns, 375, -10, 100, 100, 16, container);
 
         info = new JLabel("");
-        mC.modifyJLabel(info, 500, -10, 100, 100, 16, container);
+        mC.modifyJLabel(info, 500, -10, 200, 100, 16, container);
         
         frame.setJMenuBar(menu);
         container.add(paint);

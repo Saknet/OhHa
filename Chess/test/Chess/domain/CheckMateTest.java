@@ -13,11 +13,8 @@ import static org.junit.Assert.*;
 
 public class CheckMateTest {
     private int [][] board; 
-    private int [][] board2; 
     private CheckMate cm;
-    private Moves moves;
-    private int [] whites;
-    private int [] blacks;      
+      
     
     public CheckMateTest() {
         this.board = new int[][] {{0,0,8,10,0,2,6,4},
@@ -29,10 +26,7 @@ public class CheckMateTest {
                                   {1,1,1,1,6,1,1,1},
                                   {0,0,7,0,0,7,0,0}};  
               
-        this.cm = new CheckMate();
-        this.moves = new Moves();
-        this.whites = new int[16];
-        this.blacks = new int[16];          
+        this.cm = new CheckMate();         
     }
     
     @BeforeClass
@@ -110,6 +104,16 @@ public class CheckMateTest {
     public void canEliminateAttackerTrue() {
         assertEquals(cm.canTakeDownAttacker(4, 6), true);
     }
+    
+    @Test
+    public void canTakeDownAttackerQueen() {
+        assertEquals(cm.canTakeDownAttacker(0, 3), true);
+    } 
+    
+    @Test
+    public void canBlockAttackerQueen() {
+        assertEquals(cm.canTakeDownAttacker(3, 0), false);
+    }     
 
     @Test
     public void canEliminateAttackerEmpty() {

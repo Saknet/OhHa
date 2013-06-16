@@ -106,5 +106,6 @@ ei suju hommat
 1h sekvenssikaaviot
 3h lis‰‰ testej‰
 2h testausdokumentaation tekoa ja hieman manuaalista testausta
-1h testej‰
+2h testej‰
 PALAUTUS!!! gief arvosana != 0
+Pink Floyd - Dark Side Of The Moon soimaan
